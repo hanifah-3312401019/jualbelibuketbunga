@@ -26,3 +26,11 @@ Route::post('/signup', function (Request $request) {
 Route::get('/login', function () {
     return view('login');
 });
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+
+Route::get('/history_order', function () {
+    return view('history_order');
+})->name('history.order'); 
