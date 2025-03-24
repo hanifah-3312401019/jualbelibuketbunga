@@ -34,3 +34,11 @@ Route::get('/profile', function () {
 Route::get('/history_order', function () {
     return view('history_order');
 })->name('history.order'); 
+
+Route::get('/about', function () {
+    return view('about');
+});
+
+Route::get('/product', function () {
+    return view('product');
+});
