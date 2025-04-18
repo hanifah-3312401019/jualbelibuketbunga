@@ -8,6 +8,10 @@ use App\Http\Controllers\DataBarangController;
 use App\Http\Controllers\TentangKamiController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\HalamanUtamaController;
+use App\Http\Controllers\SignupController;
+use App\Http\Controllers\KategoriController;
+
+
 
 // Route bawaan Laravel
 Route::get('/welcome', function () {
@@ -44,9 +48,14 @@ Route::prefix('admin')->group(function () {
 // Route menggunakan Controller (mengganti route function biasa)
 Route::get('/listbarang/{id}/{nama}', [ListBarangController::class, 'tampilkan']);
 
-Route::get('/login', [LoginController::class, 'index']);Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/login', [LoginController::class, 'index']);
+Route::post('/login', [LoginController::class, 'authenticate']);
+
+Route::get('/signup', [SignupController::class, 'showSignup']);
+Route::post('/signup', [SignupController::class, 'register']);
+
+Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+
 
 Route::get('/DataBarang', [DataBarangController::class, 'tampilkan']);
 
