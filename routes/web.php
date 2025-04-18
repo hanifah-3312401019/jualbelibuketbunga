@@ -1,13 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController; // Mengimpor HomeController
+use App\Http\Controllers\HomeController; 
 use App\Http\Controllers\ListBarangController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DataBarangController;
 use App\Http\Controllers\TentangKamiController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\HalamanUtamaController;
+use App\Http\Controllers\DetailProdukController;
+use App\Http\Controllers\KeranjangController;
+use App\Http\Controllers\CheckoutController;
 
 // Route bawaan Laravel
 Route::get('/welcome', function () {
