@@ -11,6 +11,9 @@ use App\Http\Controllers\HalamanUtamaController;
 use App\Http\Controllers\DetailProdukController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ProdukPenjualController;
+use App\Http\Controllers\RekapPenjualanController;
+use App\Http\Controllers\DashboardPenjualController;
 
 // Route bawaan Laravel
 Route::get('/welcome', function () {
@@ -69,3 +72,7 @@ Route::get('/tentang_kami', [TentangKamiController::class, 'index']);
 Route::get('/detail-produk', [DetailProdukController::class, 'index']);
 Route::get('/keranjang', [KeranjangController::class, 'index']);
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
+
+Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.penjualan');
+Route::get('/dashboard-penjual', [DashboardController::class, 'index'])->name('dashboard-penjual');
+Route::resource('/produk-penjual', ProdukPenjualController::class);
