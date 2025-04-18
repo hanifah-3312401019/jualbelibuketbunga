@@ -8,6 +8,11 @@ use App\Http\Controllers\DataBarangController;
 use App\Http\Controllers\TentangKamiController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\HalamanUtamaController;
+use App\Http\Controllers\SignupController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\DetailProdukController;
+use App\Http\Controllers\KeranjangController;
+use App\Http\Controllers\CheckoutController;
 
 // Route bawaan Laravel
 Route::get('/welcome', function () {
@@ -57,3 +62,7 @@ Route::get('/directory', function () {
 Route::get('/halaman_utama', [HalamanUtamaController::class, 'index']);
 Route::get('/produk', [ProdukController::class, 'index']);
 Route::get('/tentang_kami', [TentangKamiController::class, 'index']);
+
+Route::get('/detail-produk', [DetailProdukController::class, 'index']);
+Route::get('/keranjang', [KeranjangController::class, 'index']);
+Route::get('/checkout', [CheckoutController::class, 'checkout']);
