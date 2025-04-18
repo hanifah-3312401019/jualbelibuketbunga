@@ -16,10 +16,10 @@
     <!-- Sidebar -->
     <aside class="w-1/5 h-screen bg-gradient-to-b from-purple-100 to-white p-4">
         <div class="mb-0 mt-0 text-center">
-            <img src="{{ asset('images/logo-bloomify.png') }}" class="w-38 mx-auto mb-0">
+            <img src="{{ asset('images/Bloomify.png') }}" class="w-38 mx-auto mb-0">
         </div>
         <nav class="space-y-4 text-sm">
-            <a href="{{ route('dashboard') }}" class="block bg-pink-100 px-4 py-2 rounded-md">🏠 DASHBOARD</a>
+            <a href="{{ route('dashboard.penjual') }}" class="block bg-pink-100 px-4 py-2 rounded-md">🏠 DASHBOARD</a>
             <a href="{{ route('produk.index') }}" class="block bg-pink-100 px-4 py-2 rounded-md">📦 DAFTAR PRODUK</a>
             <a href="{{ route('rekap.penjualan') }}" class="block bg-pink-100 px-4 py-2 rounded-md">📋 REKAP PENJUALAN</a>
             <a href="#" class="block bg-pink-100 px-4 py-2 rounded-md">🏷️ KATEGORI PRODUK</a>

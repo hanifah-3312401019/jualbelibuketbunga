@@ -74,5 +74,6 @@ Route::get('/keranjang', [KeranjangController::class, 'index']);
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
 
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.penjualan');
-Route::get('/dashboard-penjual', [DashboardController::class, 'index'])->name('dashboard-penjual');
+Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
 Route::resource('/produk-penjual', ProdukPenjualController::class);
+Route::resource('produk', ProdukPenjualController::class);
