@@ -14,7 +14,7 @@
     <aside class="w-60 bg-white p-4 flex flex-col justify-between shadow-lg">
         <div>
             <div class="text-center mb-8">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-100">
+                <img src="{{ asset('images/Bloomify.png') }}" alt="Logo" class="h-100">
 
             </div>
             <nav class="space-y-3">

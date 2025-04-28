@@ -14,6 +14,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProdukPenjualController;
 use App\Http\Controllers\RekapPenjualanController;
 use App\Http\Controllers\DashboardPenjualController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\ResiController;
 
 // Route bawaan Laravel
 Route::get('/welcome', function () {
@@ -76,4 +78,5 @@ Route::get('/checkout', [CheckoutController::class, 'checkout']);
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.penjualan');
 Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
 Route::resource('/produk-penjual', ProdukPenjualController::class);
-Route::resource('produk', ProdukPenjualController::class);
+
+Route::get('/resi', [ResiController::class, 'index'])->name('resi');

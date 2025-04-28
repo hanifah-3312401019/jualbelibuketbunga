@@ -5,113 +5,165 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - Bloomify</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function toggleModal(id) {
+      const modal = document.getElementById(id);
+      modal.classList.toggle('hidden');
+    }
+
+    function updateOngkir() {
+      const selectedOngkir = document.querySelector('input[name="shipping"]:checked').value;
+      let ongkir = selectedOngkir === 'hemat' ? 10000 : 15000;
+      document.getElementById('subtotalPengiriman').innerText = `Rp${ongkir.toLocaleString('id-ID')}`;
+
+      const produkTotal = 390000;
+      document.getElementById('totalPembayaran').innerText = `Rp${(produkTotal + ongkir).toLocaleString('id-ID')}`;
+    }
+
+    function buatPesanan() {
+      const metode = document.querySelector('input[name="payment"]:checked').value;
+      if (metode === 'COD') {
+        window.location.href = '/resi';
+      } else if (metode === 'Bank Transfer') {
+        const kodePembayaran = 'TRF' + Math.floor(Math.random() * 1000000);
+        alert('Kode Pembayaran Anda: ' + kodePembayaran);
+        window.location.href = '/resi';
+      }
+    }
+  </script>
 </head>
 <body class="bg-gray-100 font-sans">
 
-  <!-- Header -->
-<header class="relative">
-  <img src="{{ asset('images/latar.png') }}" alt="Header" class="w-full h-96 object-cover">
-  <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+  <!-- Body Checkout -->
+  <main class="container mx-auto px-6 py-8 bg-white rounded-xl shadow-md mt-10">
 
-  <div class="absolute top-6 left-6 right-6 bg-white bg-opacity-70 backdrop-blur-md rounded-full flex items-center justify-between px-6 py-0.5 shadow-lg">
-    <!-- Logo -->
-    <div class="flex items-center">
-      <img src="{{ asset('images/Bloomify.png') }}" alt="Bloomify Logo" class="h-16 mr-4">
-    </div>
-
-    <!-- Navigation -->
-    <nav class="flex gap-8 text-gray-700 font-semibold text-sm">
-      <a href="#" class="hover:underline text-center">Halaman Utama</a>
-      <a href="#" class="hover:underline text-center">Produk</a>
-      <a href="#" class="hover:underline text-center">Hubungi Kami</a>
-      <a href="#" class="hover:underline text-center">Tentang Kami</a>
-    </nav>
-
-    <!-- Search and Icons -->
-    <div class="flex items-center gap-4">
-      <!-- Search Icon -->
-      <div class="relative">
-        <input type="text" class="rounded-full pl-10 pr-4 py-2 text-sm text-gray-900" placeholder="Cari..." />
-        <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    <!-- Header Checkout -->
+    <div class="mb-6 flex items-center justify-between">
+      <div class="flex items-center">
+        <a href="javascript:history.back()" class="text-black mr-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
+        </a>
+        <h2 class="text-2xl font-bold">Checkout</h2>
+      </div>
+      <div>
+        <img src="{{ asset('images/Bloomify.png') }}" alt="Bloomify Logo" class="h-10">
+      </div>
+    </div>
+
+    <!-- Alamat Pengiriman -->
+    <section class="mb-6">
+      <h2 class="text-xl font-bold">Alamat Pengiriman</h2>
+      <p class="font-semibold" id="namaPenerima">Nishimura Riki <span class="text-sm font-normal">(+6281234567890)</span></p>
+      <p class="text-sm" id="alamatPenerima">Perumahan Buana View Blok Tulip NO. 03</p>
+      <button onclick="toggleModal('alamatModal')" class="text-blue-500 text-sm hover:underline mt-2 inline-block">Ubah</button>
+      <hr class="mt-4">
+    </section>
+
+    <!-- Modal Ubah Alamat -->
+    <div id="alamatModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+      <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-lg font-bold mb-4">Ubah Alamat Pengiriman</h2>
+        <input type="text" id="namaBaru" placeholder="Nama Penerima" class="w-full border px-4 py-2 mb-2 rounded">
+        <input type="text" id="telpBaru" placeholder="No. Telepon" class="w-full border px-4 py-2 mb-2 rounded">
+        <textarea id="alamatBaru" placeholder="Alamat Lengkap" class="w-full border px-4 py-2 mb-4 rounded"></textarea>
+        <div class="text-right">
+          <button onclick="toggleModal('alamatModal')" class="bg-gray-300 px-4 py-2 rounded mr-2">Batal</button>
+          <button onclick="
+            document.getElementById('namaPenerima').innerHTML = document.getElementById('namaBaru').value + 
+            ' <span class=\'text-sm font-normal\'>(' + document.getElementById('telpBaru').value + ')</span>';
+            document.getElementById('alamatPenerima').innerText = document.getElementById('alamatBaru').value;
+            toggleModal('alamatModal');
+          " class="bg-blue-500 text-white px-4 py-2 rounded">Simpan</button>
         </div>
       </div>
+    </div>
 
-      <!-- Cart Icon (Keranjang) -->
-      <button class="text-gray-700">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 5h12a1 1 0 001-1V6a1 1 0 00-1-1H6m6 16a2 2 0 11-4 0 2 2 0 014 0z"/>
-        </svg>
-      </button>
+    <!-- Produk Dipesan -->
+    <section class="overflow-x-auto mb-6">
+      <table class="w-full border border-black text-center">
+        <thead class="bg-gray-100 font-bold">
+          <tr>
+            <th class="border border-black px-4 py-2">Produk Dipesan</th>
+            <th class="border border-black px-4 py-2">Harga Satuan</th>
+            <th class="border border-black px-4 py-2">Jumlah</th>
+            <th class="border border-black px-4 py-2">Subtotal Produk</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border border-black px-4 py-2 flex items-center justify-center">
+              <img src="{{ asset('images/bukettulip.png') }}" alt="Buket Tulip Biru" class="w-24 h-24 object-cover mr-4">
+              <span>Buket Bunga Tulip Biru</span>
+            </td>
+            <td class="border border-black px-4 py-2">170.000</td>
+            <td class="border border-black px-4 py-2">1</td>
+            <td class="border border-black px-4 py-2">170.000</td>
+          </tr>
+          <tr>
+            <td class="border border-black px-4 py-2 flex items-center justify-center">
+              <img src="{{ asset('images/buketdaisy.png') }}" alt="Buket Daisy Putih" class="w-24 h-24 object-cover mr-4">
+              <span>Buket Bunga Daisy Putih</span>
+            </td>
+            <td class="border border-black px-4 py-2">220.000</td>
+            <td class="border border-black px-4 py-2">1</td>
+            <td class="border border-black px-4 py-2">220.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-      <!-- User Icon (Orang) -->
-      <button class="text-gray-700">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 15c3.042 0 5.824 1.09 7.879 2.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      </button>
+    <!-- Opsi Pengiriman -->
+    <section class="mb-6">
+      <h3 class="font-bold text-md mb-2">Opsi Pengiriman</h3>
+      <div class="flex flex-col gap-2">
+        <label class="inline-flex items-center">
+          <input type="radio" name="shipping" value="hemat" class="form-radio" onclick="updateOngkir()">
+          <span class="ml-2">Hemat (Rp10.000)</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="radio" name="shipping" value="reguler" class="form-radio" onclick="updateOngkir()" checked>
+          <span class="ml-2">Reguler (Rp15.000)</span>
+        </label>
+      </div>
+      <hr class="mt-4">
+    </section>
 
-      <!-- Logout Icon -->
-      <button class="text-gray-700">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7" />
-        </svg>
+    <!-- Rincian Pembayaran -->
+    <section class="mb-6">
+      <h3 class="font-bold text-md mb-2">Rincian Pembayaran</h3>
+      <p class="text-sm">Subtotal Produk <span class="float-right">Rp390.000</span></p>
+      <p class="text-sm">Subtotal Pengiriman <span id="subtotalPengiriman" class="float-right">Rp15.000</span></p>
+      <p class="font-bold">Total Pembayaran <span id="totalPembayaran" class="float-right">Rp405.000</span></p>
+      <hr class="mt-4">
+    </section>
+
+    <!-- Metode Pembayaran -->
+    <section class="mb-10">
+      <h3 class="font-bold text-md mb-2">Metode Pembayaran</h3>
+      <div class="flex flex-col gap-2">
+        <label class="inline-flex items-center">
+          <input type="radio" name="payment" value="COD" class="form-radio" checked>
+          <span class="ml-2">COD (Bayar di Tempat)</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="radio" name="payment" value="Bank Transfer" class="form-radio">
+          <span class="ml-2">Transfer Bank (Mandiri, BCA, BRI)</span>
+        </label>
+      </div>
+      <hr class="mt-4">
+    </section>
+
+    <!-- Tombol Buat Pesanan -->
+    <div class="text-right">
+      <button onclick="buatPesanan()" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">
+        Buat Pesanan
       </button>
     </div>
-  </div>
-</header>
 
-
-
-  <!-- Checkout Form -->
-  <main class="container mx-auto px-6 py-16">
-    <h2 class="text-2xl font-bold mb-6">Checkout</h2>
-    <form action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-8 rounded-xl shadow-md">
-      @csrf
-      <!-- Informasi Pelanggan -->
-      <div>
-        <h3 class="text-xl font-semibold mb-4">Informasi Pelanggan</h3>
-        <div class="mb-4">
-          <label class="block text-sm font-medium mb-1">Nama Lengkap</label>
-          <input type="text" name="nama" class="w-full border rounded-lg px-4 py-2" required>
-        </div>
-        <div class="mb-4">
-          <label class="block text-sm font-medium mb-1">Alamat Pengiriman</label>
-          <textarea name="alamat" rows="4" class="w-full border rounded-lg px-4 py-2" required></textarea>
-        </div>
-        <div>
-          <label class="block text-sm font-medium mb-1">Metode Pembayaran</label>
-          <select name="pembayaran" class="w-full border rounded-lg px-4 py-2" required>
-            <option value="">Pilih Metode</option>
-            <option value="transfer">Transfer Bank</option>
-            <option value="cod">Cash on Delivery</option>
-            <option value="ewallet">E-Wallet</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Ringkasan Pesanan -->
-      <div>
-        <h3 class="text-xl font-semibold mb-4">Ringkasan Pesanan</h3>
-        <div class="flex items-center mb-4">
-          <img src="{{ asset('images/bukettulip.png') }}" alt="Buket Tulip Biru" class="w-20 h-20 object-cover rounded-lg mr-4">
-          <div>
-            <p class="font-semibold">Buket Bunga Tulip Biru</p>
-            <p class="text-sm text-gray-600">Qty: 1</p>
-            <p class="text-sm font-semibold mt-1">Rp190.000</p>
-          </div>
-        </div>
-        <div class="border-t pt-4 mt-4">
-          <p class="text-lg font-bold">Total: Rp190.000</p>
-          <button type="submit" class="mt-6 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg w-full">
-            Konfirmasi dan Bayar
-          </button>
-        </div>
-      </div>
-    </form>
   </main>
 
 </body>
 </html>
+
