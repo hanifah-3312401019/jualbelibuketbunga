@@ -87,8 +87,12 @@ Route::get('/home', function () {
 Route::get('/produk-penjual', [ProdukPenjualController::class, 'index'])->name('produk.index');
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
 Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
-Route::get('/kategori-produk', [KatagoriProdukController::class, 'index'])->name('katagori.index');
+Route::get('/kategori-produk', [KategoriProdukController::class, 'index'])->name('katagori.index');
 Route::get('/produk-penjual/create', [ProdukPenjualController::class, 'create'])->name('produk.create');
 Route::get('/produk-penjual/{id}/edit', [ProdukPenjualController::class, 'edit'])->name('produk.edit');
 Route::delete('/produk-penjual/{id}', [ProdukPenjualController::class, 'destroy'])->name('produk.destroy');
 Route::get('/profil-penjual', [ProfilPenjualController::class, 'edit'])->name('profil.penjual');
+
+Route::get('/hubungi_kami', function () {
+    return view('pages.hubungi_kami');
+});

@@ -25,7 +25,7 @@
     <aside class="w-64 bg-gradient-to-b from-[#E8E3EF] to-[#FFFFFF] shadow-md flex flex-col justify-between p-4">
         <div>
             <div class="text-center mb-6">
-                <img src="{{ asset('images/logo-bloomify.png') }}" alt="Bloomify Logo" class="mx-auto h-14 mb-2">
+                <img src="{{ asset('images/Bloomify.png') }}" alt="Bloomify" class="mx-auto h-14 mb-2">
                 <h1 class="text-xl font-bold">Bloomify</h1>
                 <p class="text-xs text-gray-500">Bouquet Flowers</p>
             </div>
