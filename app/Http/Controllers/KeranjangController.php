@@ -8,6 +8,6 @@ class KeranjangController extends Controller
 {
     public function index()
     {
-        return view('keranjang');
+        return view('pages.keranjang');
     }
 }

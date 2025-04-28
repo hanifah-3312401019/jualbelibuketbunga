@@ -19,7 +19,7 @@ class ProdukController extends Controller
         ];
 
         // Ganti 'product' jadi 'produk'
-        return view('produk', ['products' => $products]);
+        return view('pages.produk', ['products' => $products]);
     }
 }
 ?>

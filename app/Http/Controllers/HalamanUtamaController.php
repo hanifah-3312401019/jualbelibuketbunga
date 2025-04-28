@@ -8,6 +8,6 @@ class HalamanUtamaController extends Controller
 {
     public function index()
     {
-        return view('halaman_utama');
+        return view('pages.halaman_utama');
     }
 }

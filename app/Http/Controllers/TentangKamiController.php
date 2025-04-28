@@ -30,7 +30,7 @@ class TentangKamiController extends Controller
             ],
         ];
 
-        return view('tentang_kami', compact('timPengembang'));
+        return view('pages.tentang_kami', compact('timPengembang'));
     }
 }
 ?>

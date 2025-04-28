@@ -14,6 +14,9 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProdukPenjualController;
 use App\Http\Controllers\RekapPenjualanController;
 use App\Http\Controllers\DashboardPenjualController;
+use App\Http\Controllers\SignupController;
+use App\Http\Controllers\ListProductController;
+use App\Http\Controllers\ProductController;
 
 // Route bawaan Laravel
 Route::get('/welcome', function () {
@@ -58,7 +61,6 @@ Route::post('/signup', [SignupController::class, 'register']);
 
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
 
-
 Route::get('/DataBarang', [DataBarangController::class, 'tampilkan']);
 
 Route::get('/directory', function () {
@@ -73,7 +75,8 @@ Route::get('/detail-produk', [DetailProdukController::class, 'index']);
 Route::get('/keranjang', [KeranjangController::class, 'index']);
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
 
-Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.penjualan');
-Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
-Route::resource('/produk-penjual', ProdukPenjualController::class);
-Route::resource('produk', ProdukPenjualController::class);
+Route::get('/listproduct', [ProductController::class, 'show']);
+
+Route::get('/home', function () {
+    return view('pages.home');
+});
