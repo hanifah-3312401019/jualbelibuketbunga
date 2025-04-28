@@ -14,16 +14,12 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProdukPenjualController;
 use App\Http\Controllers\RekapPenjualanController;
 use App\Http\Controllers\DashboardPenjualController;
-<<<<<<< HEAD
-use App\Http\Controllers\KategoriController;
-use App\Http\Controllers\ResiController;
-=======
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\ListProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\ProfilPenjualController;
->>>>>>> e334b0a847fe142dd1065ecc156e07e279adaa51
+use App\Http\Controllers\ResiController;
 
 // Route bawaan Laravel
 Route::get('/welcome', function () {
@@ -92,11 +88,6 @@ Route::get('/home', function () {
 Route::get('/produk-penjual', [ProdukPenjualController::class, 'index'])->name('produk.index');
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
 Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
-<<<<<<< HEAD
-Route::resource('/produk-penjual', ProdukPenjualController::class);
-
-Route::get('/resi', [ResiController::class, 'index'])->name('resi');
-=======
 Route::get('/kategori-produk', [KategoriProdukController::class, 'index'])->name('katagori.index');
 Route::get('/produk-penjual/create', [ProdukPenjualController::class, 'create'])->name('produk.create');
 Route::get('/produk-penjual/{id}/edit', [ProdukPenjualController::class, 'edit'])->name('produk.edit');
@@ -106,4 +97,5 @@ Route::get('/profil-penjual', [ProfilPenjualController::class, 'edit'])->name('p
 Route::get('/hubungi_kami', function () {
     return view('pages.hubungi_kami');
 });
->>>>>>> e334b0a847fe142dd1065ecc156e07e279adaa51
+
+Route::get('/resi', [ResiController::class, 'index'])->name('resi');
