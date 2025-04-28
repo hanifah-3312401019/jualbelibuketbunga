@@ -10,6 +10,6 @@ class RekapPenjualanController extends Controller
     public function index()
     {
         $rekapPenjualan = RekapPenjualan::all();
-        return view('rekap_penjualan.index', compact('rekapPenjualan'));
+        return view('pages.rekap_penjualan', compact('rekapPenjualan'));
     }
 }

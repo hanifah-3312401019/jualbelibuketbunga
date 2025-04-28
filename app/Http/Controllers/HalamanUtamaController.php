@@ -8,6 +8,18 @@ class HalamanUtamaController extends Controller
 {
     public function index()
     {
-        return view('halaman_utama');
+        $products = [
+            ['name' => 'Buket Bunga Tulip Biru', 'price' => 190000, 'image' => 'bukettulip.png'],
+            ['name' => 'Buket Bunga Daisy Putih', 'price' => 220000, 'image' => 'buketdaisy.png'],
+            ['name' => 'Buket Bunga Mawar Pink', 'price' => 235000, 'image' => 'buketmawar.png'],
+            ['name' => 'Buket Bunga Mawar Putih', 'price' => 263000, 'image' => 'buketmawarputih.png'],
+            ['name' => 'Buket Bunga Tulip Biru', 'price' => 190000, 'image' => 'bukettulip.png'],
+            ['name' => 'Buket Bunga Daisy Putih', 'price' => 220000, 'image' => 'buketdaisy.png'],
+            ['name' => 'Buket Bunga Mawar Pink', 'price' => 235000, 'image' => 'buketmawar.png'],
+            ['name' => 'Buket Bunga Mawar Putih', 'price' => 263000, 'image' => 'buketmawarputih.png'],
+        ];
+    
+        // Ganti 'product' jadi 'produk'
+        return view('pages.halaman_utama', ['products' => $products]);
     }
 }
