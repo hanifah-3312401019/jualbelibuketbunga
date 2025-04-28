@@ -11,7 +11,7 @@ class ProdukPenjualController extends Controller
     public function index()
     {
         $produks = Produk::all();
-        return view('daftar_produk.index', compact('produks'));
+        return view('pages.daftar_produk', compact('produks'));
     }
 
     /**
@@ -19,7 +19,7 @@ class ProdukPenjualController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.tambah_produk');
     }
 
     /**
@@ -57,7 +57,7 @@ class ProdukPenjualController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('pages.edit_produk', compact('id'));
     }
 
     /**
@@ -73,6 +73,6 @@ class ProdukPenjualController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus.');
     }
 }

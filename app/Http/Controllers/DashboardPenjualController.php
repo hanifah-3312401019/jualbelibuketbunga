@@ -13,6 +13,6 @@ class DashboardPenjualController extends Controller
         $jumlahProduk = Produk::count();
         $jumlahRekapPenjualan = RekapPenjualan::count();
 
-        return view('dashboard_penjual.index', compact('jumlahProduk', 'jumlahRekapPenjualan'));
+        return view('pages.dashboard_penjual', compact('jumlahProduk', 'jumlahRekapPenjualan'));
     }
 }
