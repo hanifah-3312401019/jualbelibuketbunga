@@ -17,7 +17,7 @@ use App\Http\Controllers\DashboardPenjualController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\ListProductController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\KatagoriProdukController;
 use App\Http\Controllers\ProfilPenjualController;
 
 // Route bawaan Laravel
