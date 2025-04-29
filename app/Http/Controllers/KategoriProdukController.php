@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class KatagoriProdukController extends Controller
+class KategoriProdukController extends Controller
 {
     public function index()
     {
@@ -13,6 +13,6 @@ class KatagoriProdukController extends Controller
             ['nama_kategori' => 'MATAHARI']
         ];
 
-        return view('pages.katagori_produk', compact('kategoris'));
+        return view('pages.kategori_produk', compact('kategoris'));
     }
 }
