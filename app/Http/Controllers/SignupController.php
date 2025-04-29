@@ -10,7 +10,7 @@ class SignupController extends Controller
 {
     public function showSignup()
     {
-        return view('signup');
+        return view('pages.signup');
     }
 
     public function register(Request $request)

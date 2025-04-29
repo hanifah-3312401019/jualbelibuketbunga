@@ -16,8 +16,17 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProdukPenjualController;
 use App\Http\Controllers\RekapPenjualanController;
 use App\Http\Controllers\DashboardPenjualController;
+<<<<<<< HEAD
 use App\Http\Controllers\UserProfileController;
 
+=======
+use App\Http\Controllers\SignupController;
+use App\Http\Controllers\ListProductController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\ProfilPenjualController;
+use App\Http\Controllers\ResiController;
+>>>>>>> 0cb1bdaa44e322333157a2f582bf6854bf81d529
 
 // Route bawaan Laravel
 Route::get('/welcome', function () {
@@ -62,7 +71,6 @@ Route::post('/signup', [SignupController::class, 'register']);
 
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
 
-
 Route::get('/DataBarang', [DataBarangController::class, 'tampilkan']);
 
 Route::get('/directory', function () {
@@ -77,9 +85,31 @@ Route::get('/detail-produk', [DetailProdukController::class, 'index']);
 Route::get('/keranjang', [KeranjangController::class, 'index']);
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
 
-Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.penjualan');
+
+Route::get('/listproduct', [ProductController::class, 'show']);
+
+Route::get('/home', function () {
+    return view('pages.home');
+});
+
+Route::get('/produk-penjual', [ProdukPenjualController::class, 'index'])->name('produk.index');
+Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
 Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
+<<<<<<< HEAD
 Route::resource('/produk-penjual', ProdukPenjualController::class);
 
 Route::get('/editprofil', [UserProfileController::class, 'edit']);
 
+=======
+Route::get('/kategori-produk', [KategoriProdukController::class, 'index'])->name('katagori.index');
+Route::get('/produk-penjual/create', [ProdukPenjualController::class, 'create'])->name('produk.create');
+Route::get('/produk-penjual/{id}/edit', [ProdukPenjualController::class, 'edit'])->name('produk.edit');
+Route::delete('/produk-penjual/{id}', [ProdukPenjualController::class, 'destroy'])->name('produk.destroy');
+Route::get('/profil-penjual', [ProfilPenjualController::class, 'edit'])->name('profil.penjual');
+
+Route::get('/hubungi_kami', function () {
+    return view('pages.hubungi_kami');
+});
+
+Route::get('/resi', [ResiController::class, 'index'])->name('resi');
+>>>>>>> 0cb1bdaa44e322333157a2f582bf6854bf81d529

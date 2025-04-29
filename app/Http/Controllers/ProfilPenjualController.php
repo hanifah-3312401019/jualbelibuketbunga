@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-
-class UserProfileController extends Controller
+class ProfilPenjualController extends Controller
 {
     public function edit()
     {
-        return view('editprofilpembeli');
+        return view('pages.profil_penjual');
     }
 }
