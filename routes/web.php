@@ -10,10 +10,14 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\HalamanUtamaController;
 use App\Http\Controllers\DetailProdukController;
 use App\Http\Controllers\KeranjangController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\SignupController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProdukPenjualController;
 use App\Http\Controllers\RekapPenjualanController;
 use App\Http\Controllers\DashboardPenjualController;
+use App\Http\Controllers\UserProfileController;
+
 
 // Route bawaan Laravel
 Route::get('/welcome', function () {
@@ -76,4 +80,6 @@ Route::get('/checkout', [CheckoutController::class, 'checkout']);
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.penjualan');
 Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
 Route::resource('/produk-penjual', ProdukPenjualController::class);
-Route::resource('produk', ProdukPenjualController::class);
+
+Route::get('/editprofil', [UserProfileController::class, 'edit']);
+
