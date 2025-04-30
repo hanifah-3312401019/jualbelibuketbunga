@@ -48,7 +48,7 @@
 
     <!-- Tombol Checkout -->
     <div class="mt-6 text-right">
-      <a href="/checkout" class="bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition duration-300">Checkout</a>
+      <a href="/checkout" class="bg-pink-500 text-white px-6 py-3 rounded-full hover:bg-pink-600 transition duration-300">Checkout</a>
     </div>
   </main>
 

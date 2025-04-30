@@ -100,9 +100,9 @@
               <img src="{{ asset('images/bukettulip.png') }}" alt="Buket Tulip Biru" class="w-24 h-24 object-cover mr-4">
               <span>Buket Bunga Tulip Biru</span>
             </td>
-            <td class="border border-black px-4 py-2">170.000</td>
+            <td class="border border-black px-4 py-2">190.000</td>
             <td class="border border-black px-4 py-2">1</td>
-            <td class="border border-black px-4 py-2">170.000</td>
+            <td class="border border-black px-4 py-2">190.000</td>
           </tr>
           <tr>
             <td class="border border-black px-4 py-2 flex items-center justify-center">
@@ -136,9 +136,9 @@
     <!-- Rincian Pembayaran -->
     <section class="mb-6">
       <h3 class="font-bold text-md mb-2">Rincian Pembayaran</h3>
-      <p class="text-sm">Subtotal Produk <span class="float-right">Rp390.000</span></p>
+      <p class="text-sm">Subtotal Produk <span class="float-right">Rp410.000</span></p>
       <p class="text-sm">Subtotal Pengiriman <span id="subtotalPengiriman" class="float-right">Rp15.000</span></p>
-      <p class="font-bold">Total Pembayaran <span id="totalPembayaran" class="float-right">Rp405.000</span></p>
+      <p class="font-bold">Total Pembayaran <span id="totalPembayaran" class="float-right">Rp425.000</span></p>
       <hr class="mt-4">
     </section>
 
@@ -160,7 +160,7 @@
 
     <!-- Tombol Buat Pesanan -->
     <div class="text-right">
-      <button onclick="buatPesanan()" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">
+      <button onclick="buatPesanan()" class="bg-pink-500 text-white px-6 py-2 rounded-md hover:bg-pink-600">
         Buat Pesanan
       </button>
     </div>

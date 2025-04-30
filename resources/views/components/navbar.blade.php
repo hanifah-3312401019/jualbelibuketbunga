@@ -22,6 +22,8 @@
         <section class="relative h-[10vh] bg-cover bg-center text-white bg-[url('{{ asset('images/') }}')]">
     @elseif (Request::is('editprofil'))
         <section class="relative h-[10vh] bg-cover bg-center text-white bg-[url('{{ asset('images/') }}')]">
+    @elseif (Request::is('detail-produk'))
+        <section class="relative h-[40vh] bg-cover bg-center text-white bg-[url('{{ asset('images/tentanglatar.jpg') }}')]">
     @else
         <section class="relative h-[40vh] bg-cover bg-center text-white flex items-center bg-[url('{{ asset('images/latar.png') }}')]">
     @endif
@@ -68,7 +70,7 @@
         </div>
     @elseif (Request::is('tentang_kami'))
         <div class="absolute inset-0 flex flex-col items-center justify-center z-0 text-center">
-            <h1 class="text-5xl font-bold text-white mb-2">Tentang Kami</h1>
+            <h1 class="text-5xl font-bold text-white mb-2">⋆｡ﾟ☁︎｡ Tentang Kami ﾟ☾ ﾟ｡⋆</h1>
         </div>
     @elseif (Request::is('hubungi_kami'))
         <div class="absolute inset-0 flex flex-col items-center justify-center z-0 text-center">
@@ -77,6 +79,10 @@
     @elseif (Request::is('keranjang'))
         <div class="absolute inset-0 flex flex-col items-center justify-center z-0 text-center">
             <h1 class="text-5xl font-bold text-white mb-2">Keranjang Anda 🛒</h1>
+        </div>
+    @elseif (Request::is('detail-produk'))
+        <div class="absolute inset-0 flex flex-col items-center justify-center z-0 text-center">
+            <h1 class="text-5xl font-bold text-white mb-1">Detail Produk 🔍︎</h1>
         </div>
     @endif
 
