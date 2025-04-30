@@ -8,6 +8,6 @@ class ResiController extends Controller
 {
     public function index()
     {
-        return view('resi');
+        return view('pages.resi');
     }
 }

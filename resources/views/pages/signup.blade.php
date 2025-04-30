@@ -7,8 +7,7 @@
     <title>Registrasi | Bloomify</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
-<body class="min-h-screen flex items-center justify-center bg-[#F5F5F5] px-4">
+<body class="min-h-screen flex items-start justify-center bg-gradient-to-b from-[#E8E3EF] to-white px-4 py-10"> 
 
     <div class="w-full max-w-4xl bg-white rounded-3xl shadow-lg flex flex-col md:flex-row overflow-hidden">
         <!-- Form Registrasi -->

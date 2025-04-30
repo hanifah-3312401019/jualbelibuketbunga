@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - Bloomify</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
+  @include('components.navbar')
+  
   <script>
     function toggleModal(id) {
       const modal = document.getElementById(id);
@@ -35,7 +38,7 @@
 <body class="bg-gray-100 font-sans">
 
   <!-- Body Checkout -->
-  <main class="container mx-auto px-6 py-8 bg-white rounded-xl shadow-md mt-10">
+  <main class="container mx-auto px-8 py-10 bg-white rounded-xl shadow-md mt-10">
 
     <!-- Header Checkout -->
     <div class="mb-6 flex items-center justify-between">

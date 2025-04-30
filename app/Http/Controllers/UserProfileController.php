@@ -9,6 +9,6 @@ class UserProfileController extends Controller
 {
     public function edit()
     {
-        return view('editprofilpembeli');
+        return view('pages.editprofilpembeli');
     }
 }

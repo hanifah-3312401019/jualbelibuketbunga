@@ -75,7 +75,7 @@
 {{-- Google Map --}}
 <div class="max-w-7xl mx-auto mb-10">
     <iframe
-        src="https://www.google.com/maps?q=-6.200000,106.816666&hl=es;z=14&amp;output=embed"
+        src="https://www.google.com/maps?q=Batam,Kepulauan+Riau,Indonesia&hl=id&z=14&output=embed"
         width="100%"
         height="350"
         frameborder="0"

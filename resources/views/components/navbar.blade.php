@@ -16,8 +16,14 @@
         <section class="relative h-[40vh] bg-cover bg-center text-white bg-[url('{{ asset('images/bgg.jpg') }}')]">
     @elseif (Request::is('hubungi_kami'))
         <section class="relative h-[40vh] bg-cover bg-center text-white bg-[url('{{ asset('images/tentanglatar.jpg') }}')]">
+    @elseif (Request::is('keranjang'))
+        <section class="relative h-[40vh] bg-cover bg-center text-white bg-[url('{{ asset('images/tentanglatar.jpg') }}')]">
+    @elseif (Request::is('checkout'))
+        <section class="relative h-[10vh] bg-cover bg-center text-white bg-[url('{{ asset('images/') }}')]">
+    @elseif (Request::is('editprofil'))
+        <section class="relative h-[10vh] bg-cover bg-center text-white bg-[url('{{ asset('images/') }}')]">
     @else
-        <section class="relative h-[50vh] bg-cover bg-center text-white flex items-center bg-[url('{{ asset('images/latar.png') }}')]">
+        <section class="relative h-[40vh] bg-cover bg-center text-white flex items-center bg-[url('{{ asset('images/latar.png') }}')]">
     @endif
 
     <!-- Navbar -->
@@ -41,7 +47,7 @@
             <a href="/keranjang" title="Keranjang">
                 <i class="fa-solid fa-cart-shopping text-xl text-black cursor-pointer"></i>
             </a>
-            <a href="/login" title="Akun">
+            <a href="/editprofil" title="Akun">
                 <i class="fa-solid fa-user text-xl text-black cursor-pointer"></i>
             </a>
             <a href="/logout" title="Logout">
@@ -67,6 +73,10 @@
     @elseif (Request::is('hubungi_kami'))
         <div class="absolute inset-0 flex flex-col items-center justify-center z-0 text-center">
             <h1 class="text-5xl font-bold text-white mb-1">Hubungi Kami</h1>
+        </div>
+    @elseif (Request::is('keranjang'))
+        <div class="absolute inset-0 flex flex-col items-center justify-center z-0 text-center">
+            <h1 class="text-5xl font-bold text-white mb-2">Keranjang Anda 🛒</h1>
         </div>
     @endif
 

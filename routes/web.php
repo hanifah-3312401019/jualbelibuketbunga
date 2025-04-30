@@ -19,7 +19,7 @@ use App\Http\Controllers\DashboardPenjualController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ListProductController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\KatagoriProdukController;
+use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\ProfilPenjualController;
 use App\Http\Controllers\ResiController;
 use App\Http\Controllers\LoginPenjualController;
@@ -65,7 +65,7 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/signup', [SignupController::class, 'showSignup']);
 Route::post('/signup', [SignupController::class, 'register']);
 
-Route::get('/kategori', [KategoriProdukController::class, 'index'])->name('kategori.index');
+
 
 Route::get('/DataBarang', [DataBarangController::class, 'tampilkan']);
 
@@ -91,11 +91,11 @@ Route::get('/home', function () {
 Route::get('/produk-penjual', [ProdukPenjualController::class, 'index'])->name('produk.index');
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
 Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
-Route::resource('/produk-penjual', ProdukPenjualController::class);
+
 
 Route::get('/editprofil', [UserProfileController::class, 'edit']);
 
-Route::get('/kategori-produk', [KategoriProdukController::class, 'index'])->name('katagori.index');
+Route::get('/kategori_produk', [KategoriProdukController::class, 'index'])->name('kategori.index');
 Route::get('/produk-penjual/create', [ProdukPenjualController::class, 'create'])->name('produk.create');
 Route::get('/produk-penjual/{id}/edit', [ProdukPenjualController::class, 'edit'])->name('produk.edit');
 Route::delete('/produk-penjual/{id}', [ProdukPenjualController::class, 'destroy'])->name('produk.destroy');

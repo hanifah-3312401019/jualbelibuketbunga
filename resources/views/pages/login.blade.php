@@ -7,9 +7,8 @@
     <!-- Tailwind CSS CDN + Font Awesome (jika perlu) -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-[#F5F5F5]">
-
-    <div class="w-full max-w-4xl flex flex-col md:flex-row bg-white/80 rounded-3xl shadow-lg overflow-hidden mt-10 mb-10">
+<body class="min-h-screen flex items-start justify-center bg-gradient-to-b from-[#E8E3EF] to-white px-6 py-20">
+    <div class="w-full max-w-4xl flex flex-col md:flex-row bg-white/80 rounded-3xl shadow-lg overflow-hidden">
         <!-- Kolom Gambar -->
         <div class="md:w-1/2 flex flex-col items-center justify-center bg-[#F8F6FA] p-10">
             <img src="{{ asset('images/buketmawarputih.png') }}" alt="Buket" class="w-60 mb-8">
