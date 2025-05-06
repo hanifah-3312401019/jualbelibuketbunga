@@ -1,4 +1,4 @@
-@extends('layout.list')
+@extends('layouts.list')
 @section('title', 'list Produk Bloomify')
 @section('content')
 

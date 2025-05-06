@@ -28,7 +28,7 @@
                 <td class="border px-4 py-2 text-center">MATAHARI</td>
                 <td class="border px-4 py-2 text-center flex justify-center gap-2">
                     <a href="#" class="bg-green-300 hover:bg-green-400 text-black px-2 py-1 rounded">
-                        <i class="fa-solid fa-pen-to-square"></i> EDIT
+                        <i class="fa-solid fa-pen-to-square"></i> UBAH
                     </a>
                     <a href="#" class="bg-red-400 hover:bg-red-500 text-white px-2 py-1 rounded">
                         <i class="fa-solid fa-trash"></i> HAPUS

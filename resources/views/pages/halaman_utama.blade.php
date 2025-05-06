@@ -38,7 +38,7 @@
                 <h3 class="text-l font-semibold text-black-500">{{ $product['name'] }}</h3>
                 <p class="text-gray-700">Rp{{ number_format($product['price'], 0, ',', '.') }}</p>
                 <div class="mt-3 w-full flex justify-between gap-12 items-center">
-                    <a href="" class="flex-1 px-5 py-2 bg-pink-400 text-white rounded-full text-center hover:bg-pink-500 transition">
+                    <a href="detail-produk" class="flex-1 px-5 py-2 bg-pink-400 text-white rounded-full text-center hover:bg-pink-500 transition">
                         Detail
                     </a>
                     <form action="" method="POST">
