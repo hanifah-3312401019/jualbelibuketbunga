@@ -21,7 +21,7 @@
     @elseif (Request::is('checkout'))
         <section class="relative h-[10vh] bg-cover bg-center text-white bg-[url('{{ asset('images/') }}')]">
     @elseif (Request::is('editprofil'))
-        <section class="relative h-[10vh] bg-cover bg-center text-white bg-[url('{{ asset('images/') }}')]">
+        <section class="relative h-[20vh] bg-cover bg-center text-white bg-[url('{{ asset('images/latar.png') }}')]">
     @elseif (Request::is('detail-produk'))
         <section class="relative h-[40vh] bg-cover bg-center text-white bg-[url('{{ asset('images/tentanglatar.jpg') }}')]">
     @else

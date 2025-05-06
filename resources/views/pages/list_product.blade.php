@@ -1,3 +1,4 @@
+<!-- File tugas, tidak di pakai dalam PBL -->
 @extends('layouts.list')
 @section('title', 'list Produk Bloomify')
 @section('content')

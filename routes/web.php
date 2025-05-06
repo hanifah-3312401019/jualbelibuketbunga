@@ -77,8 +77,9 @@ Route::get('/halaman_utama', [HalamanUtamaController::class, 'index']);
 Route::get('/produk', [ProdukController::class, 'index']);
 Route::get('/tentang_kami', [TentangKamiController::class, 'index']);
 
-Route::get('/detail-produk', [DetailProdukController::class, 'index']);
-Route::get('/keranjang', [KeranjangController::class, 'index']);
+Route::get('/detail-produk', [DetailProdukController::class, 'index'])->name('pages.detail-produk');
+Route::get('/keranjang', [KeranjangController::class, 'index'])->name('pages.keranjang');
+Route::post('/keranjang', [KeranjangController::class, 'store'])->name('pages.keranjang.store');
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
 
 

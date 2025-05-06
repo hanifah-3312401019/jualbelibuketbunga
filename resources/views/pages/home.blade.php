@@ -1,3 +1,4 @@
+<!-- File tugas, tidak di pakai dalam PBL -->
 @extends('layouts.app')
 
 @section('title', 'Home')

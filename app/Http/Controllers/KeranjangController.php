@@ -10,4 +10,9 @@ class KeranjangController extends Controller
     {
         return view('pages.keranjang');
     }
+
+    public function store(Request $request)
+    {
+    return redirect()->route('pages.keranjang')->with('info', 'Produk berhasil ditambahkan ke keranjang.');
+    }
 }

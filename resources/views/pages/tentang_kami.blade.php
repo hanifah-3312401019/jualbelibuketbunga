@@ -1,6 +1,6 @@
 @include('components.navbar')
 
-<body class="bg-gray-50 font-sans min-h-screen">
+
 
     <!-- Tentang Kami Section -->
     <div class="container mx-auto py-16 px-6">
@@ -59,6 +59,5 @@
         </div>
     </section>
 
-</body>
-
+    
 @include('components.footer_')

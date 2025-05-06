@@ -45,8 +45,8 @@
         <div class="relative">
             <select class="w-full border rounded px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300 text-sm appearance-none">
                 <option>Pilih Jenis Layanan</option>
-                <option>Buket Bunga</option>
-                <option>Parcel</option>
+                <option>Buket Bunga Segar</option>
+                <option>Buket Bunga Random</option>
                 <option>Lainnya</option>
             </select>
             <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-pink-400 pointer-events-none">

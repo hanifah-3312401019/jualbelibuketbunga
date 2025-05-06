@@ -30,16 +30,16 @@
                 <p class="text-xs text-gray-500">Bouquet Flowers</p>
             </div>
             <nav class="space-y-2 text-sm">
-                <a href="{{ route('dashboard.penjual') }}" class="flex items-center px-4 py-2 bg-pink-100 rounded-lg font-medium text-gray-700">
+                <a href="{{ route('dashboard.penjual') }}" class="flex items-center px-4 py-2 bg-pink-200 rounded-lg font-medium text-gray-700">
                     <i class="fa-solid fa-house mr-3"></i> Dashboard
                 </a>
-                <a href="{{ route('produk.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-100 rounded-lg text-gray-700">
+                <a href="{{ route('produk.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
                     <i class="fa-solid fa-box mr-3"></i> Daftar Produk
                 </a>
-                <a href="{{ route('rekap.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-100 rounded-lg text-gray-700">
+                <a href="{{ route('rekap.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
                     <i class="fa-solid fa-file-alt mr-3"></i> Rekapitulasi Penjualan
                 </a>
-                <a href="{{ route('kategori.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-100 rounded-lg text-gray-700">
+                <a href="{{ route('kategori.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
                     <i class="fa-solid fa-tags mr-3"></i> Kategori Produk
                 </a>
             </nav>

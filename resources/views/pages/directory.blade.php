@@ -1,3 +1,4 @@
+<!-- File tugas, tidak di pakai dalam PBL -->
 <head>
   <title>Gambar dan Style</title>
   <link rel="stylesheet" href="https://cdn.tailwindcss.com/3.4.1">
