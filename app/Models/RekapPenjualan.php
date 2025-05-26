@@ -6,11 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class RekapPenjualan extends Model
 {
-    protected $fillable = [
-        'tanggal',
-        'nama_produk',
-        'harga_produk',
-        'jumlah_produk',
-        'total_harga',
-    ];
+    protected $table = 'rekap_penjualan'; // <- ini penting
+
+    // kalau kamu pakai timestamps (created_at, updated_at), pastikan ini tetap
+    public $timestamps = true;
 }

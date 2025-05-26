@@ -8,8 +8,10 @@
     </div>
 
     <div class="mb-4">
-        <a href="{{ route('produk.create') }}" class="bg-[#FBF0F0] text-black hover:bg-[#F2DADA] py-2 px-4 rounded-md">
-            ➕ TAMBAH PRODUK
+        <a href="{{ route('produk-penjual.create') }}">
+            <button class="bg-pink-200 text-black py-1 px-3 rounded hover:bg-pink-300">
+         ＋ TAMBAH PRODUK
+            </button>
         </a>
     </div>
 

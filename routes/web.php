@@ -102,6 +102,8 @@ Route::get('/produk-penjual/{id}/edit', [ProdukPenjualController::class, 'edit']
 Route::delete('/produk-penjual/{id}', [ProdukPenjualController::class, 'destroy'])->name('produk.destroy');
 Route::get('/profil-penjual', [ProfilPenjualController::class, 'edit'])->name('profil.penjual');
 Route::get('/login-penjual', [LoginPenjualController::class, 'showLoginForm'])->name('login.penjual');
+Route::get('/produk-penjual/create', [ProdukPenjualController::class, 'create'])->name('produk-penjual.create');
+Route::post('/produk-penjual', [ProdukPenjualController::class, 'store'])->name('produk-penjual.store');
 
 Route::get('/hubungi_kami', function () {
     return view('pages.hubungi_kami');

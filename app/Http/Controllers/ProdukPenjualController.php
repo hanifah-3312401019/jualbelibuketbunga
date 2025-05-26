@@ -3,76 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Models\ProdukFoto;
 use Illuminate\Http\Request;
 
 class ProdukPenjualController extends Controller
 {
-
     public function index()
     {
-        $produks = Produk::all();
+        // Ambil semua produk beserta 1 foto
+        $produks = Produk::with('foto')->get();
         return view('pages.daftar_produk', compact('produks'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('pages.tambah_produk');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'harga' => 'required|integer',
+        $request->validate([
+            'nama_produk' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'harga' => 'required|numeric',
             'stok' => 'required|integer',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'foto.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
-    
-        if ($request->hasFile('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('gambar_produk', 'public');
+
+        $produk = Produk::create([
+            'nama_produk' => $request->nama_produk,
+            'deskripsi' => $request->deskripsi,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+        ]);
+
+        if ($request->hasFile('foto')) {
+            foreach ($request->file('foto') as $foto) {
+                $nama_file = time() . '-' . $foto->getClientOriginalName();
+                $foto->move(public_path('images/produk'), $nama_file);
+
+                ProdukFoto::create([
+                    'produk_id' => $produk->id,
+                    'path' => 'images/produk/' . $nama_file,
+                ]);
+            }
         }
-    
-        Produk::create($validated);
-    
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan!');
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        return view('pages.edit_produk', compact('id'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus.');
+        return redirect()->route('produk-penjual.index')->with('success', 'Produk berhasil ditambahkan');
     }
 }
