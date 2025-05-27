@@ -89,7 +89,6 @@ Route::get('/home', function () {
     return view('pages.home');
 });
 
-Route::get('/produk-penjual', [ProdukPenjualController::class, 'index'])->name('produk.index');
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
 Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
 
@@ -97,13 +96,10 @@ Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->
 Route::get('/editprofil', [UserProfileController::class, 'edit']);
 
 Route::get('/kategori_produk', [KategoriProdukController::class, 'index'])->name('kategori.index');
-Route::get('/produk-penjual/create', [ProdukPenjualController::class, 'create'])->name('produk.create');
-Route::get('/produk-penjual/{id}/edit', [ProdukPenjualController::class, 'edit'])->name('produk.edit');
 Route::delete('/produk-penjual/{id}', [ProdukPenjualController::class, 'destroy'])->name('produk.destroy');
 Route::get('/profil-penjual', [ProfilPenjualController::class, 'edit'])->name('profil.penjual');
 Route::get('/login-penjual', [LoginPenjualController::class, 'showLoginForm'])->name('login.penjual');
 Route::get('/produk-penjual/create', [ProdukPenjualController::class, 'create'])->name('produk-penjual.create');
-Route::post('/produk-penjual', [ProdukPenjualController::class, 'store'])->name('produk-penjual.store');
 
 Route::get('/hubungi_kami', function () {
     return view('pages.hubungi_kami');
@@ -111,3 +107,9 @@ Route::get('/hubungi_kami', function () {
 
 Route::get('/resi', [ResiController::class, 'index'])->name('resi');
 
+Route::get('/produk-penjual', [ProdukPenjualController::class, 'index'])->name('produk-penjual.index');
+Route::get('/produk-penjual/create', [ProdukPenjualController::class, 'create'])->name('produk-penjual.create');
+Route::post('/produk-penjual', [ProdukPenjualController::class, 'store'])->name('produk-penjual.store');
+Route::get('/produk-penjual/{id}/edit', [ProdukPenjualController::class, 'edit'])->name('produk-penjual.edit');
+Route::put('/produk-penjual/{id}', [ProdukPenjualController::class, 'update'])->name('produk-penjual.update');
+Route::delete('/produk-penjual/{id}', [ProdukPenjualController::class, 'destroy'])->name('produk-penjual.destroy');

@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
-use App\Models\ProdukFoto;
 use Illuminate\Http\Request;
 
 class ProdukPenjualController extends Controller
 {
     public function index()
     {
-        // Ambil semua produk beserta 1 foto
-        $produks = Produk::with('foto')->get();
+        $produks = Produk::all();
         return view('pages.daftar_produk', compact('produks'));
     }
 
@@ -23,32 +21,65 @@ class ProdukPenjualController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_produk' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'harga' => 'required|numeric',
+            'harga' => 'required|integer',
             'stok' => 'required|integer',
-            'foto.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'kategori' => 'required|string|max:100',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $produk = Produk::create([
-            'nama_produk' => $request->nama_produk,
-            'deskripsi' => $request->deskripsi,
-            'harga' => $request->harga,
-            'stok' => $request->stok,
-        ]);
+        $data = $request->all();
 
-        if ($request->hasFile('foto')) {
-            foreach ($request->file('foto') as $foto) {
-                $nama_file = time() . '-' . $foto->getClientOriginalName();
-                $foto->move(public_path('images/produk'), $nama_file);
-
-                ProdukFoto::create([
-                    'produk_id' => $produk->id,
-                    'path' => 'images/produk/' . $nama_file,
-                ]);
-            }
+        if ($request->hasFile('gambar')) {
+            $filename = time() . '-' . $request->file('gambar')->getClientOriginalName();
+            $request->file('gambar')->move(public_path('images/produk'), $filename);
+            $data['gambar'] = 'images/produk/' . $filename;
         }
 
-        return redirect()->route('produk-penjual.index')->with('success', 'Produk berhasil ditambahkan');
+        Produk::create($data);
+
+        return redirect()->route('produk-penjual.index')->with('success', 'Produk berhasil ditambahkan!');
+    }
+
+    public function edit($id)
+    {
+        $produk = Produk::findOrFail($id);
+        return view('pages.edit_produk', compact('produk'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $produk = Produk::findOrFail($id);
+
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'harga' => 'required|integer',
+            'stok' => 'required|integer',
+            'kategori' => 'required|string|max:100',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $data = $request->all();
+
+        if ($request->hasFile('gambar')) {
+            $filename = time() . '-' . $request->file('gambar')->getClientOriginalName();
+            $request->file('gambar')->move(public_path('images/produk'), $filename);
+            $data['gambar'] = 'images/produk/' . $filename;
+        } else {
+            unset($data['gambar']);
+        }
+
+        $produk->update($data);
+
+        return redirect()->route('produk-penjual.index')->with('success', 'Produk berhasil diupdate!');
+    }
+
+    public function destroy($id)
+    {
+        $produk = Produk::findOrFail($id);
+        $produk->delete();
+        return redirect()->route('produk-penjual.index')->with('success', 'Produk berhasil dihapus!');
     }
 }

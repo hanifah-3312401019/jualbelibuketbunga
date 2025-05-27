@@ -33,7 +33,7 @@
                 <a href="{{ route('dashboard.penjual') }}" class="flex items-center px-4 py-2 bg-pink-200 rounded-lg font-medium text-gray-700">
                     <i class="fa-solid fa-house mr-3"></i> Dashboard
                 </a>
-                <a href="{{ route('produk.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
+                <a href="{{ route('produk-penjual.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
                     <i class="fa-solid fa-box mr-3"></i> Daftar Produk
                 </a>
                 <a href="{{ route('rekap.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
