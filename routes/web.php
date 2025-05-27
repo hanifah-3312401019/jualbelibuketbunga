@@ -96,6 +96,13 @@ Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->
 Route::get('/editprofil', [UserProfileController::class, 'edit']);
 
 Route::get('/kategori_produk', [KategoriProdukController::class, 'index'])->name('kategori.index');
+Route::get('/kategori_produk/create', [KategoriProdukController::class, 'create'])->name('kategori.create');
+Route::post('/kategori_produk', [KategoriProdukController::class, 'store'])->name('kategori.store');
+Route::get('/kategori_produk/{id}/edit', [KategoriProdukController::class, 'edit'])->name('kategori.edit');
+Route::put('/kategori_produk/{id}', [KategoriProdukController::class, 'update'])->name('kategori.update');
+Route::delete('/kategori_produk/{id}', [KategoriProdukController::class, 'destroy'])->name('kategori.destroy');
+
+
 Route::delete('/produk-penjual/{id}', [ProdukPenjualController::class, 'destroy'])->name('produk.destroy');
 Route::get('/profil-penjual', [ProfilPenjualController::class, 'edit'])->name('profil.penjual');
 Route::get('/login-penjual', [LoginPenjualController::class, 'showLoginForm'])->name('login.penjual');

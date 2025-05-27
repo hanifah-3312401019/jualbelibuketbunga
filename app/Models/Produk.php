@@ -19,7 +19,12 @@ class Produk extends Model
         'deskripsi',
         'harga',
         'stok',
-        'kategori',
+        'kategori_id',
         'gambar',
     ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(KategoriProduk::class, 'kategori_id');
+    }
 }
