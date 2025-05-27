@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masuk Pembeli | Bloomify</title>
+    <title>Masuk | Bloomify</title>
     <!-- Tailwind CSS CDN + Font Awesome (jika perlu) -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
