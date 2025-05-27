@@ -18,6 +18,7 @@ class Pengguna extends Authenticatable
         'password',
         'nama_pengguna',
         'no_telepon',
+        'foto',
         // Add other fillable fields as needed
     ];
 

@@ -6,7 +6,7 @@
         <h1 class="text-3xl font-bold text-center mb-8">.ೃ࿔*°❀⋆ Produk Buket Bunga! °❀⋆.ೃ࿔*</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach ($products as $product)
-                <div class="bg-white max-w-xs mx-auto p-3 rounded-lg shadow hover:shadow-lg transition">
+                <div data-aos="fade-up" class="bg-transparent backdrop-blur-sm max-w-xs mx-auto p-3 rounded-lg shadow hover:shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-lg">
                     <img src="{{ asset('images/' . $product['image']) }}" alt="{{ $product['name'] }}" class="w-full h-auto object-contain rounded-md mb-3">
                     <h3 class="text-lg font-semibold text-black">{{ $product['name'] }}</h3>
                     <p class="text-gray-700">Rp{{ number_format($product['price'], 0, ',', '.') }}</p>

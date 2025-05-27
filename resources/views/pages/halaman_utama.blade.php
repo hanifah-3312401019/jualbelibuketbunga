@@ -2,7 +2,7 @@
 
 <section class="py-12 bg-white">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
-        <div class="text-center bg-gray-50 rounded-lg shadow p-6">
+        <div class="bg-transparent backdrop-blur-sm text-center bg-gray-50 rounded-lg shadow p-6 transition-transform duration-300 hover:scale-105 hover:shadow-lg" data-aos="fade-up">
             <div class="text-4xl mb-4">🌼</div>
             <h3 class="font-bold text-lg mb-2">RANGKAIAN CINTA &amp; KEINDAHAN</h3>
             <p class="text-gray-600">
@@ -10,7 +10,7 @@
             </p>
         </div>
 
-        <div class="text-center bg-gray-50 rounded-lg shadow p-6">
+        <div class="bg-transparent backdrop-blur-sm text-center bg-gray-50 rounded-lg shadow p-6 transition-transform duration-300 hover:scale-105 hover:shadow-lg" data-aos="fade-up" data-aos-delay="100">
             <div class="text-4xl mb-4">🌺</div>
             <h3 class="font-bold text-lg mb-2">BUNGA DENGAN<br/>KUALITAS TERBAIK</h3>
             <p class="text-gray-600">
@@ -18,7 +18,7 @@
             </p>
         </div>
 
-        <div class="text-center bg-gray-50 rounded-lg shadow p-6">
+        <div class="bg-transparent backdrop-blur-sm text-center bg-gray-50 rounded-lg shadow p-6 transition-transform duration-300 hover:scale-105 hover:shadow-lg" data-aos="fade-up" data-aos-delay="200">
             <div class="text-4xl mb-4">💐</div>
             <h3 class="font-bold text-lg mb-2">
                 BUNGA TERINDAH UNTUK<br/>SETIAP MOMEN
@@ -35,7 +35,7 @@
         <h1 class="text-3xl font-bold text-center mb-8">.ೃ࿔*°❀⋆ Buket Bunga Terbaru! °❀⋆.ೃ࿔*</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach ($products as $product)
-                <div class="bg-white max-w-xs mx-auto p-3 rounded-lg shadow hover:shadow-lg transition">
+                <div class="bg-transparent backdrop-blur-sm max-w-xs mx-auto p-3 rounded-lg transition-transform duration-300 hover:scale-105 hover:shadow-lg">
                     <img 
                         src="{{ asset('images/' . $product['image']) }}" 
                         alt="{{ $product['name'] }}" 

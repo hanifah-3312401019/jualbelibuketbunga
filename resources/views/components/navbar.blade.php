@@ -7,6 +7,7 @@
     <!-- Tailwind + Flowbite + Font Awesome CDN -->
     <script src="https://cdn.tailwindcss.com/3.4.1"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100 font-serif">
@@ -87,6 +88,11 @@
     @endif
 
 </section>
-
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ duration: 800, once: true });
+        });
+</script>
 </body>
 </html>

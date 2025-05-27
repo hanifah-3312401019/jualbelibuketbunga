@@ -94,6 +94,8 @@ Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->
 
 
 Route::get('/editprofil', [UserProfileController::class, 'edit']);
+Route::post('/editprofil', [UserProfileController::class, 'update']);
+
 
 Route::get('/kategori_produk', [KategoriProdukController::class, 'index'])->name('kategori.index');
 Route::get('/kategori_produk/create', [KategoriProdukController::class, 'create'])->name('kategori.create');
