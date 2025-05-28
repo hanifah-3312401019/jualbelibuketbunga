@@ -55,9 +55,13 @@
                 <a href="{{ route('profil.penjual') }}">
                     <i class="fa-solid fa-user-circle text-2xl text-gray-700"></i>
                 </a>
-                <a href="/logout" class="text-xl text-gray-700 hover:text-red-500 transition">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                </a>
+                <!-- Tombol Logout POST -->
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="inline">
+        @csrf
+        <button type="button" onclick="confirmLogout()" title="Logout" class="bg-transparent border-0 p-0 m-0">
+            <i class="fa-solid fa-right-from-bracket text-xl text-black cursor-pointer"></i>
+        </button>
+    </form>
             </div>
         </header>
 
@@ -66,6 +70,14 @@
             @yield('content')
         </section>
     </main>
+
+    <script>
+        function confirmLogout() {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                document.getElementById('logout-form').submit();
+            }
+            }
+    </script>
 
 </body>
 </html>

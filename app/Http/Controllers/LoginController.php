@@ -16,9 +16,14 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        'email' => 'required|email',
+        'password' => 'required|min:6',
+    ], [
+        'email.required' => 'Email wajib diisi.',
+        'email.email' => 'Format email tidak valid.',
+        'password.required' => 'Password wajib diisi.',
+        'password.min' => 'Password minimal 6 karakter.',
+    ]);
 
         // Login untuk penjual (hardcoded) - sesuai permintaan: bloomify@gmail.com
         if ($request->email == 'bloomify@gmail.com' && $request->password == 'admin123') {

@@ -43,20 +43,23 @@
         </ul>
 
         <div class="flex items-center space-x-4">
-            <div class="relative">
-                <input type="text" placeholder="Cari..." class="pl-4 pr-10 py-2 border rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-pink-300" />
-                <i class="fa-solid fa-magnifying-glass absolute right-3 top-3 text-gray-700"></i>
-            </div>
-            <a href="/keranjang" title="Keranjang">
-                <i class="fa-solid fa-cart-shopping text-xl text-black cursor-pointer"></i>
-            </a>
-            <a href="/editprofil" title="Akun">
-                <i class="fa-solid fa-user text-xl text-black cursor-pointer"></i>
-            </a>
-            <a href="/logout" title="Logout">
-                <i class="fa-solid fa-right-from-bracket text-xl text-black cursor-pointer"></i>
-            </a>
-        </div>
+    <div class="relative">
+        <input type="text" placeholder="Cari..." class="pl-4 pr-10 py-2 border rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-pink-300" />
+        <i class="fa-solid fa-magnifying-glass absolute right-3 top-3 text-gray-700"></i>
+    </div>
+    <a href="/keranjang" title="Keranjang">
+        <i class="fa-solid fa-cart-shopping text-xl text-black cursor-pointer"></i>
+    </a>
+    <a href="/editprofil" title="Akun">
+        <i class="fa-solid fa-user text-xl text-black cursor-pointer"></i>
+    </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="inline">
+        @csrf
+        <button type="button" onclick="confirmLogout()" title="Logout" class="bg-transparent border-0 p-0 m-0">
+            <i class="fa-solid fa-right-from-bracket text-xl text-black cursor-pointer"></i>
+        </button>
+    </form>
+    </div>
     </nav>
 
     <!-- Special Content di Atas Background -->
@@ -87,12 +90,21 @@
         </div>
     @endif
 
-</section>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    </section>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             AOS.init({ duration: 800, once: true });
         });
-</script>
+    </script>
+
+    <script>
+        function confirmLogout() {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                document.getElementById('logout-form').submit();
+            }
+            }
+    </script>
+
 </body>
 </html>
