@@ -61,6 +61,7 @@ Route::get('/listbarang/{id}/{nama}', [ListBarangController::class, 'tampilkan']
 
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/signup', [SignupController::class, 'showSignup']);
 Route::post('/signup', [SignupController::class, 'register']);

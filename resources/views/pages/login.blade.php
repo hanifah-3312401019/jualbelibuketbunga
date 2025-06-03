@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk | Bloomify</title>
-    <!-- Tailwind CSS CDN + Font Awesome (jika perlu) -->
+
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen flex items-start justify-center bg-gradient-to-b from-[#E8E3EF] to-white px-6 py-20">
@@ -20,9 +20,21 @@
         <div class="md:w-1/2 flex flex-col justify-center p-10 bg-white">
             <h2 class="text-3xl font-bold text-center mb-2">MASUK</h2>
             <p class="text-center text-gray-700 mb-6">Selamat datang kembali! Silakan masuk ke akun anda</p>
-            @if (session('error'))
-                <div class="text-red-500 text-center mb-4">{{ session('error') }}</div>
+            
+            @if($errors->any())
+                <div class="text-red-500 text-center mb-4">
+                    @foreach($errors->all() as $error)
+                        {{ $error }}
+                    @endforeach
+                </div>
             @endif
+
+            @if(session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <form method="POST" action="{{ url('/login') }}" class="space-y-6">
                 @csrf
                 <div>
@@ -41,6 +53,6 @@
             </form>
         </div>
     </div>
-
+    
 </body>
 </html>
