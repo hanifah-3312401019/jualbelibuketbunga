@@ -1,21 +1,18 @@
 @include('components.navbar')
 
-  <div class="max-w-5xl mx-auto py-16 px-6 grid md:grid-cols-2 gap-12 items-start">
+<div class="max-w-5xl mx-auto py-16 px-6 grid md:grid-cols-2 gap-12 items-start">
     <!-- Gambar Buket -->
     <div class="flex justify-center">
-      <img src="{{ asset('images/bukettulip.png') }}" alt="Produk Buket" class="w-full max-w-sm rounded-md shadow" />
+      <img src="{{ asset($produk->gambar) }}" alt="Produk {{ $produk->nama }}" class="w-full max-w-sm rounded-md shadow" />
     </div>
 
     <!-- Detail Produk -->
     <div>
-      <h1 class="text-3xl font-bold mb-4">Buket Bunga Tulip Biru</h1>
-      <p class="text-2xl text-gray-800 font-semibold mb-6">Rp190.000</p>
+      <h1 class="text-3xl font-bold mb-4">{{ $produk->nama }}</h1>
+      <p class="text-2xl text-gray-800 font-semibold mb-6">Rp{{ number_format($produk->harga, 0, ',', '.') }}</p>
       <p class="text-gray-600 mb-6 text-justify">
-        Buket Bunga Tulip Biru adalah simbol dari ketenangan, kepercayaan, dan harapan yang dalam. Dihadirkan dengan 15 tangkai tulip biru berkualitas tinggi, 
-        buket ini memberikan sentuhan elegan dan menenangkan yang cocok untuk mengungkapkan rasa cinta, perhatian, maupun doa terbaik kepada orang tersayang.
-        Cocok untuk hadiah ulang tahun, ucapan semangat, atau momen spesial lainnya.
+        {{ $produk->deskripsi }}
       </p>
-
 
       <!-- Jumlah -->
       <div class="mb-6">
@@ -28,35 +25,35 @@
       </div>
 
       <!-- Tombol -->
-      <button onclick="addToCart()" class="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded font-semibold">
-        Tambahkan ke Keranjang
-      </button>
+      <form action="{{ route('pages.keranjang.store') }}" method="POST">
+        @csrf
+        <input type="hidden" name="produk_id" value="{{ $produk->id }}">
+        <input type="hidden" id="qty" name="quantity" value="1">
+        <button type="submit" class="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded font-semibold">
+          Tambahkan ke Keranjang
+        </button>
+      </form>
     </div>
-  </div>
+</div>
 
-  
-  <script>
+<script>
     let quantity = 1;
     const quantityDisplay = document.getElementById('quantity');
+    const qtyInput = document.getElementById('qty');
 
     function increaseQty() {
       quantity++;
       quantityDisplay.textContent = quantity;
+      qtyInput.value = quantity;
     }
 
     function decreaseQty() {
       if (quantity > 1) {
         quantity--;
         quantityDisplay.textContent = quantity;
+        qtyInput.value = quantity;
       }
     }
-
-    function addToCart() {
-      alert("Produk berhasil ditambahkan ke keranjang.");
-    }
-  </script>
+</script>
 
 @include('components.footer_')
-
-</body>
-</html>
