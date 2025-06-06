@@ -11,12 +11,12 @@
                     <h3 class="text-lg font-semibold text-black">{{ $product->nama }}</h3>
                     <p class="text-gray-700">Rp{{ number_format($product->harga, 0, ',', '.') }}</p>
                     <div class="mt-3 w-full flex justify-between gap-12 items-center">
-                        <a href="{{ route('pages.detail-produk', $product->id) }}" class="flex-1 px-5 py-2 bg-pink-400 text-white rounded-full text-center hover:bg-pink-500 transition">
+                        <a href="{{ route('produk.show', $product->id_produk) }}" class="flex-1 px-5 py-2 bg-pink-400 text-white rounded-full text-center hover:bg-pink-500 transition">
                             Detail
                         </a>
                         <form action="{{ route('pages.keranjang.store') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="produk_id" value="{{ $product->id }}">
+                            <input type="hidden" name="produk_id" value="{{ $product->id_produk }}">
                             <button type="submit" class="w-10 h-10 flex items-center justify-center bg-pink-500 text-white rounded-full hover:bg-pink-600 transition">
                                 <i class="fa-solid fa-cart-shopping"></i>
                             </button>
@@ -29,3 +29,4 @@
 </main>
 
 @include('components.footer_')
+

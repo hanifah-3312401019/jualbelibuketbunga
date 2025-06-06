@@ -123,3 +123,11 @@ Route::post('/produk-penjual', [ProdukPenjualController::class, 'store'])->name(
 Route::get('/produk-penjual/{id}/edit', [ProdukPenjualController::class, 'edit'])->name('produk-penjual.edit');
 Route::put('/produk-penjual/{id}', [ProdukPenjualController::class, 'update'])->name('produk-penjual.update');
 Route::delete('/produk-penjual/{id}', [ProdukPenjualController::class, 'destroy'])->name('produk-penjual.destroy');
+
+Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
+
+Route::get('/keranjang', [KeranjangController::class, 'index'])->name('pages.keranjang.index');
+Route::post('/keranjang', [KeranjangController::class, 'store'])->name('pages.keranjang.store');
+Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('pages.keranjang.destroy');
+Route::put('/keranjang/{id}', [KeranjangController::class, 'update'])->name('keranjang.update');
+Route::post('/keranjang/clear', [KeranjangController::class, 'clear'])->name('keranjang.clear');

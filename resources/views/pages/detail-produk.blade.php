@@ -9,7 +9,8 @@
     <!-- Detail Produk -->
     <div>
       <h1 class="text-3xl font-bold mb-4">{{ $produk->nama }}</h1>
-      <p class="text-2xl text-gray-800 font-semibold mb-6">Rp{{ number_format($produk->harga, 0, ',', '.') }}</p>
+      <p class="text-2xl text-gray-800 font-semibold mb-2">Rp{{ number_format($produk->harga, 0, ',', '.') }}</p>
+      <p class="text-sm text-gray-500 mb-6">Stok tersedia: {{ $produk->stok }}</p>
       <p class="text-gray-600 mb-6 text-justify">
         {{ $produk->deskripsi }}
       </p>
@@ -27,7 +28,7 @@
       <!-- Tombol -->
       <form action="{{ route('pages.keranjang.store') }}" method="POST">
         @csrf
-        <input type="hidden" name="produk_id" value="{{ $produk->id }}">
+        <input type="hidden" name="produk_id" value="{{ $produk->id_produk }}">
         <input type="hidden" id="qty" name="quantity" value="1">
         <button type="submit" class="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded font-semibold">
           Tambahkan ke Keranjang
@@ -57,3 +58,4 @@
 </script>
 
 @include('components.footer_')
+

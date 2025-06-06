@@ -11,5 +11,13 @@ class ProdukController extends Controller
        $products = Produk::all();
         return view('pages.produk', ['products' => $products]);
     }
+
+    public function show($id)
+    {
+      $produk = \App\Models\Produk::findOrFail($id);
+       return view('pages.detail-produk', ['produk' => $produk]);
+    }
+
+
 }
 ?>
