@@ -27,16 +27,16 @@ class LoginController extends Controller
 
         // Login untuk penjual (hardcoded) - sesuai permintaan: bloomify@gmail.com
         if ($request->email == 'bloomify@gmail.com' && $request->password == 'admin123') {
-            // Buat session manual untuk penjual
-            session([
-                'user_id' => 'admin',
-                'user_name' => 'Admin Penjual',
-                'user_email' => 'bloomify@gmail.com',
-                'user_role' => 'penjual'
-            ]);
-            
-            return redirect('/dashboard-penjual')->with('success', 'Selamat datang, Penjual!');
-        }
+    // Ambil user penjual dari database
+    $penjual = Pengguna::where('email', $request->email)->first();
+
+    if ($penjual) {
+        Auth::guard('penjual')->login($penjual); // pakai guard penjual
+        return redirect('/dashboard-penjual')->with('success', 'Selamat datang, Penjual!');
+    }
+
+    return back()->withErrors(['email' => 'Penjual tidak ditemukan di database.']);
+}
 
         // Login untuk pembeli (menggunakan database)
         $user = Pengguna::where('email', $request->email)->first();

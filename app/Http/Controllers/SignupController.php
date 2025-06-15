@@ -15,18 +15,14 @@ class SignupController extends Controller
 
     public function register(Request $request)
     {
-        // Validasi email khusus - tidak boleh menggunakan email penjual
+        // Validasi email khusus - boleh menggunakan email penjual
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
                 'unique:pengguna,email',
-                function ($attribute, $value, $fail) {
-                    if ($value === 'bloomify@gmail.com') {
-                        $fail('Email ini tidak dapat digunakan untuk registrasi pembeli.');
-                    }
-                },
+
             ],
             'password' => 'required|min:6|confirmed',
         ], [

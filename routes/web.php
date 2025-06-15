@@ -26,7 +26,8 @@ use App\Http\Controllers\LoginPenjualController;
 use App\Http\Controllers\SearchController;
 
 
-// Route bawaan Laravel
+// Route dasar Laravel
+// <--- Route default & halaman umum --->
 Route::get('/welcome', function () {
     return view('welcome');
 });
@@ -34,15 +35,22 @@ Route::get('/welcome', function () {
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/directory', function () {
+    return view('directory');
+});
+Route::get('/home', function () {
+    return view('pages.home');
+});
+Route::get('/hubungi_kami', function () {
+    return view('pages.hubungi_kami');
+});
 
-Route::get('/contact', [HomeController::class, 'contact']);
-
-// Route dengan Parameter Dinamis
+// <--- Route dinamis sederhana --->
 Route::get('/user/{id}', function ($id) {
     return 'User dengan ID ' . $id;
 });
 
-// Route Group dengan Prefix 'admin'
+// <--- Route grup untuk admin --->
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return 'Admin Dashboard';
@@ -53,72 +61,30 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-// Route untuk menampilkan halaman list_barang dengan parameter dinamis
-// Route::get('/listbarang/{id}/{nama}', function ($id, $nama){
-//    return view('list_barang', compact('id', 'nama'));
-//});
-
-// Route menggunakan Controller (mengganti route function biasa)
-Route::get('/listbarang/{id}/{nama}', [ListBarangController::class, 'tampilkan']);
-
-Route::get('/login', [LoginController::class, 'index']);
+// <--- Autentikasi pengguna --->
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/signup', [SignupController::class, 'showSignup']);
 Route::post('/signup', [SignupController::class, 'register']);
 
+// <--- Login khusus penjual --->
+Route::get('/login-penjual', [LoginPenjualController::class, 'showLoginForm'])->name('login.penjual');
 
-
-Route::get('/DataBarang', [DataBarangController::class, 'tampilkan']);
-
-Route::get('/directory', function () {
-    return view('directory');
-});
-
+// <--- Halaman utama & informasi --->
+Route::get('/contact', [HomeController::class, 'contact']);
 Route::get('/halaman_utama', [HalamanUtamaController::class, 'index']);
-Route::get('/produk', [ProdukController::class, 'index']);
+
 Route::get('/tentang_kami', [TentangKamiController::class, 'index']);
 
+// <--- Produk Umum --->
+Route::get('/produk', [ProdukController::class, 'index']);
+Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
+
 Route::get('/detail-produk', [DetailProdukController::class, 'index'])->name('pages.detail-produk');
-Route::get('/keranjang', [KeranjangController::class, 'index'])->name('pages.keranjang');
-Route::post('/keranjang', [KeranjangController::class, 'store'])->name('pages.keranjang.store');
-Route::get('/checkout', [CheckoutController::class, 'checkout']);
 
-
-Route::get('/listproduct', [ProductController::class, 'show']);
-
-Route::get('/home', function () {
-    return view('pages.home');
-});
-
-Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
-Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
-
-
-Route::get('/editprofil', [UserProfileController::class, 'edit']);
-Route::post('/editprofil', [UserProfileController::class, 'update']);
-
-
-Route::get('/kategori_produk', [KategoriProdukController::class, 'index'])->name('kategori.index');
-Route::get('/kategori_produk/create', [KategoriProdukController::class, 'create'])->name('kategori.create');
-Route::post('/kategori_produk', [KategoriProdukController::class, 'store'])->name('kategori.store');
-Route::get('/kategori_produk/{id}/edit', [KategoriProdukController::class, 'edit'])->name('kategori.edit');
-Route::put('/kategori_produk/{id}', [KategoriProdukController::class, 'update'])->name('kategori.update');
-Route::delete('/kategori_produk/{id}', [KategoriProdukController::class, 'destroy'])->name('kategori.destroy');
-
-
-Route::delete('/produk-penjual/{id}', [ProdukPenjualController::class, 'destroy'])->name('produk.destroy');
-Route::get('/profil-penjual', [ProfilPenjualController::class, 'edit'])->name('profil.penjual');
-Route::get('/login-penjual', [LoginPenjualController::class, 'showLoginForm'])->name('login.penjual');
-Route::get('/produk-penjual/create', [ProdukPenjualController::class, 'create'])->name('produk-penjual.create');
-
-Route::get('/hubungi_kami', function () {
-    return view('pages.hubungi_kami');
-});
-
-Route::get('/resi', [ResiController::class, 'index'])->name('resi');
-
+// <--- Produk Penjual --->
 Route::get('/produk-penjual', [ProdukPenjualController::class, 'index'])->name('produk-penjual.index');
 Route::get('/produk-penjual/create', [ProdukPenjualController::class, 'create'])->name('produk-penjual.create');
 Route::post('/produk-penjual', [ProdukPenjualController::class, 'store'])->name('produk-penjual.store');
@@ -126,13 +92,53 @@ Route::get('/produk-penjual/{id}/edit', [ProdukPenjualController::class, 'edit']
 Route::put('/produk-penjual/{id}', [ProdukPenjualController::class, 'update'])->name('produk-penjual.update');
 Route::delete('/produk-penjual/{id}', [ProdukPenjualController::class, 'destroy'])->name('produk-penjual.destroy');
 
-Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
+// <--- Kategori Produk --->
+Route::get('/kategori_produk', [KategoriProdukController::class, 'index'])->name('kategori.index');
+Route::get('/kategori_produk/create', [KategoriProdukController::class, 'create'])->name('kategori.create');
+Route::post('/kategori_produk', [KategoriProdukController::class, 'store'])->name('kategori.store');
+Route::get('/kategori_produk/{id}/edit', [KategoriProdukController::class, 'edit'])->name('kategori.edit');
+Route::put('/kategori_produk/{id}', [KategoriProdukController::class, 'update'])->name('kategori.update');
+Route::delete('/kategori_produk/{id}', [KategoriProdukController::class, 'destroy'])->name('kategori.destroy');
 
+// <--- Keranjang --->
 Route::get('/keranjang', [KeranjangController::class, 'index'])->name('pages.keranjang.index');
 Route::post('/keranjang', [KeranjangController::class, 'store'])->name('pages.keranjang.store');
 Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('pages.keranjang.destroy');
 Route::put('/keranjang/{id}', [KeranjangController::class, 'update'])->name('keranjang.update');
 Route::post('/keranjang/clear', [KeranjangController::class, 'clear'])->name('keranjang.clear');
 
+// <--- Checkout --->
+Route::get('/checkout', [CheckoutController::class, 'checkout']);
+
+// <--- Rekap dan dashboard --->
+Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
+Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
+
+// <--- Edit Profil Pengguna --->
+Route::get('/editprofil', [UserProfileController::class, 'edit']);
+Route::post('/editprofil', [UserProfileController::class, 'update']);
+
+// <--- Profil Penjual --->
+Route::get('/profil-penjual', [ProfilPenjualController::class, 'edit'])->name('profil.penjual');
+Route::put('/profil-penjual', [ProfilPenjualController::class, 'update'])->name('penjual.updateProfil');
+Route::post('/profil-penjual', [ProfilPenjualController::class, 'update'])->name('penjual.updateProfil');
+
+// <--- Profil Penjual dengan Middleware --->
+Route::middleware(['auth:penjual'])->group(function () {
+    Route::get('/profil-penjual/edit', [ProfilPenjualController::class, 'edit'])->name('profil.penjual');
+    Route::put('/profil-penjual/update', [ProfilPenjualController::class, 'update'])->name('penjual.updateProfil');
+});
+
+// <--- List Barang (dengan parameter) --->
+Route::get('/listbarang/{id}/{nama}', [ListBarangController::class, 'tampilkan']);
+
+// <--- Data Barang --->
+Route::get('/DataBarang', [DataBarangController::class, 'tampilkan']);
+
+// <--- Produk Publik (list, search, dsb) --->
+Route::get('/listproduct', [ProductController::class, 'show']);
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/search/autocomplete', [SearchController::class, 'autocomplete'])->name('search.autocomplete');
+
+// <--- Resi / Tracking --->
+Route::get('/resi', [ResiController::class, 'index'])->name('resi');
