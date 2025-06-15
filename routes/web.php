@@ -23,6 +23,8 @@ use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\ProfilPenjualController;
 use App\Http\Controllers\ResiController;
 use App\Http\Controllers\LoginPenjualController;
+use App\Http\Controllers\SearchController;
+
 
 // Route bawaan Laravel
 Route::get('/welcome', function () {
@@ -131,3 +133,6 @@ Route::post('/keranjang', [KeranjangController::class, 'store'])->name('pages.ke
 Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('pages.keranjang.destroy');
 Route::put('/keranjang/{id}', [KeranjangController::class, 'update'])->name('keranjang.update');
 Route::post('/keranjang/clear', [KeranjangController::class, 'clear'])->name('keranjang.clear');
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+Route::get('/search/autocomplete', [SearchController::class, 'autocomplete'])->name('search.autocomplete');

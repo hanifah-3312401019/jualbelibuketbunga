@@ -25,6 +25,8 @@
         <section class="relative h-[20vh] bg-cover bg-center text-white bg-[url('{{ asset('images/latar.png') }}')]">
     @elseif (Request::is('detail-produk'))
         <section class="relative h-[40vh] bg-cover bg-center text-white bg-[url('{{ asset('images/tentanglatar.jpg') }}')]">
+    @elseif (Request::is('search'))
+        <section class="relative h-[40vh] bg-cover bg-center text-white bg-[url('{{ asset('images/tentanglatar.jpg') }}')]">
     @else
         <section class="relative h-[40vh] bg-cover bg-center text-white flex items-center bg-[url('{{ asset('images/latar.png') }}')]">
     @endif
@@ -43,23 +45,38 @@
         </ul>
 
         <div class="flex items-center space-x-4">
-    <div class="relative">
-        <input type="text" placeholder="Cari..." class="pl-4 pr-10 py-2 border rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-pink-300" />
-        <i class="fa-solid fa-magnifying-glass absolute right-3 top-3 text-gray-700"></i>
-    </div>
-    <a href="/keranjang" title="Keranjang">
-        <i class="fa-solid fa-cart-shopping text-xl text-black cursor-pointer"></i>
-    </a>
-    <a href="/editprofil" title="Akun">
-        <i class="fa-solid fa-user text-xl text-black cursor-pointer"></i>
-    </a>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="inline">
-        @csrf
-        <button type="button" onclick="confirmLogout()" title="Logout" class="bg-transparent border-0 p-0 m-0">
-            <i class="fa-solid fa-right-from-bracket text-xl text-black cursor-pointer"></i>
-        </button>
-    </form>
-    </div>
+            <!-- Updated Search Form -->
+            <form action="{{ route('search') }}" method="GET" class="relative">
+                <input 
+                    type="text" 
+                    name="q" 
+                    placeholder="Cari produk..." 
+                    class="pl-4 pr-10 py-2 border rounded-full bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-pink-300"
+                    value="{{ request('q') }}"
+                    id="search-input"
+                    autocomplete="off" />
+                <button type="submit" class="absolute right-3 top-3 text-gray-700 hover:text-pink-600">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <!-- Autocomplete dropdown -->
+                <div id="autocomplete-dropdown" class="absolute top-full left-0 right-0 bg-white border rounded-lg shadow-lg mt-1 z-50 hidden max-h-60 overflow-y-auto">
+                    <!-- Autocomplete results will be populated here -->
+                </div>
+            </form>
+            
+            <a href="/keranjang" title="Keranjang">
+                <i class="fa-solid fa-cart-shopping text-xl text-black cursor-pointer"></i>
+            </a>
+            <a href="/editprofil" title="Akun">
+                <i class="fa-solid fa-user text-xl text-black cursor-pointer"></i>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="inline">
+                @csrf
+                <button type="button" onclick="confirmLogout()" title="Logout" class="bg-transparent border-0 p-0 m-0">
+                    <i class="fa-solid fa-right-from-bracket text-xl text-black cursor-pointer"></i>
+                </button>
+            </form>
+        </div>
     </nav>
 
     <!-- Special Content di Atas Background -->
@@ -88,9 +105,14 @@
         <div class="absolute inset-0 flex flex-col items-center justify-center z-0 text-center">
             <h1 class="text-5xl font-bold text-white mb-1">Detail Produk 🔍︎</h1>
         </div>
+    @elseif (Request::is('search'))
+        <div class="absolute inset-0 flex flex-col items-center justify-center z-0 text-center">
+            <h1 class="text-5xl font-bold text-white mb-1">Hasil Pencarian 🔍</h1>
+        </div>
     @endif
 
     </section>
+    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -103,7 +125,70 @@
             if (confirm('Apakah Anda yakin ingin logout?')) {
                 document.getElementById('logout-form').submit();
             }
-            }
+        }
+    </script>
+
+    <!-- Search Autocomplete Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const dropdown = document.getElementById('autocomplete-dropdown');
+            let timeout;
+
+            searchInput.addEventListener('input', function() {
+                const query = this.value.trim();
+                
+                clearTimeout(timeout);
+                
+                if (query.length < 2) {
+                    dropdown.classList.add('hidden');
+                    return;
+                }
+
+                timeout = setTimeout(() => {
+                    fetch(`{{ route('search.autocomplete') }}?q=${encodeURIComponent(query)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            dropdown.innerHTML = '';
+                            
+                            if (data.length > 0) {
+                                data.forEach(suggestion => {
+                                    const item = document.createElement('div');
+                                    item.className = 'px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700';
+                                    item.textContent = suggestion;
+                                    item.addEventListener('click', () => {
+                                        searchInput.value = suggestion;
+                                        dropdown.classList.add('hidden');
+                                        searchInput.form.submit();
+                                    });
+                                    dropdown.appendChild(item);
+                                });
+                                dropdown.classList.remove('hidden');
+                            } else {
+                                dropdown.classList.add('hidden');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching autocomplete:', error);
+                            dropdown.classList.add('hidden');
+                        });
+                }, 300);
+            });
+
+            // Hide dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!searchInput.contains(event.target) && !dropdown.contains(event.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            });
+
+            // Handle form submission
+            searchInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    dropdown.classList.add('hidden');
+                }
+            });
+        });
     </script>
 
 </body>
