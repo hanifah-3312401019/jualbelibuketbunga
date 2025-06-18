@@ -24,6 +24,7 @@ use App\Http\Controllers\ProfilPenjualController;
 use App\Http\Controllers\ResiController;
 use App\Http\Controllers\LoginPenjualController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\PesananController;
 
 
 // Route dasar Laravel
@@ -113,6 +114,8 @@ Route::get('/checkout', [CheckoutController::class, 'checkout']);
 // <--- Rekap dan dashboard --->
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
 Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
+Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
+Route::get('/dashboard-penjual/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
 
 // <--- Edit Profil Pengguna --->
 Route::get('/editprofil', [UserProfileController::class, 'edit']);

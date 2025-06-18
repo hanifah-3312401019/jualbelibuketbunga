@@ -42,6 +42,9 @@
                 <a href="{{ route('kategori.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
                     <i class="fa-solid fa-tags mr-3"></i> Kategori Produk
                 </a>
+                <a href="{{ route('pesanan.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
+                    <i class="fa-solid fa-cart-shopping mr-3"></i> Daftar Pesanan
+                </a>
             </nav>
         </div>
     </aside>
