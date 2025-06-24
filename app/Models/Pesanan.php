@@ -18,6 +18,7 @@ class Pesanan extends Model
         'alamat',
         'total',
         'metode_pembayaran',
+        'status', // tambahkan jika ingin menyimpan status
     ];
 
     public function user()
@@ -26,8 +27,7 @@ class Pesanan extends Model
     }
 
     public function detail()
-{
-    return $this->hasMany(\App\Models\PesananDetail::class, 'pesanan_id');
-}
-
+    {
+        return $this->hasMany(\App\Models\PesananDetail::class, 'pesanan_id');
+    }
 }
