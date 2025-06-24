@@ -12,11 +12,11 @@ class PesananDetail extends Model
     protected $table = 'pesanan_detail';
 
     protected $fillable = [
-        'pesanan_id',
-        'produk_id',
-        'kuantitas',
-        'harga_satuan',
-        'subtotal',
+    'pesanan_id',
+    'produk',         // Ganti dari produk_id ke produk
+    'harga',
+    'jumlah',
+    'subtotal',
     ];
 
     public function pesanan()

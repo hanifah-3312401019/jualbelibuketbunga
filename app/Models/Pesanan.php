@@ -13,21 +13,21 @@ class Pesanan extends Model
 
     protected $fillable = [
         'user_id',
-        'produk_id',
-        'jumlah',
-        'total_harga',
-        'status',
+        'nama_penerima',
+        'telepon',
+        'alamat',
+        'total',
+        'metode_pembayaran',
+        'status', // tambahkan jika ingin menyimpan status
     ];
 
-    // Relasi ke User (pembeli)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relasi ke Produk
-    public function produk()
+    public function detail()
     {
-        return $this->belongsTo(Produk::class);
+        return $this->hasMany(\App\Models\PesananDetail::class, 'pesanan_id');
     }
 }

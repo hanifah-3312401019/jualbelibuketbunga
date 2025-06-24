@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 class ResiController extends Controller
 {
     public function index()
-    {
-        return view('pages.resi');
-    }
+{
+    $pesanan = \App\Models\Pesanan::with('detail')->where('user_id', auth()->id())->latest()->first();
+
+    return view('pages.resi', compact('pesanan'));
+}
+
 }
