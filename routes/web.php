@@ -145,10 +145,8 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/search/autocomplete', [SearchController::class, 'autocomplete'])->name('search.autocomplete');
 
 // <--- Resi / Tracking --->
-<<<<<<< HEAD
 Route::get('/resi', [ResiController::class, 'index'])->name('resi');
 Route::get('/produk-penjual', [ProdukPenjualController::class, 'index'])->name('produk-penjual.index');
 
-=======
 Route::get('/resi', [ResiController::class, 'index'])->name('resi.index');
->>>>>>> 138f2c61329f59dce578a0b1febc8307e0a68eb8
+
