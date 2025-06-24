@@ -74,7 +74,7 @@ Route::get('/login-penjual', [LoginPenjualController::class, 'showLoginForm'])->
 
 // <--- Halaman utama & informasi --->
 Route::get('/contact', [HomeController::class, 'contact']);
-Route::get('/halaman_utama', [HalamanUtamaController::class, 'index']);
+Route::get('/halaman_utama', [HalamanUtamaController::class, 'index'])->name('halaman_utama');
 
 Route::get('/tentang_kami', [TentangKamiController::class, 'index']);
 
@@ -108,7 +108,8 @@ Route::put('/keranjang/{id}', [KeranjangController::class, 'update'])->name('ker
 Route::post('/keranjang/clear', [KeranjangController::class, 'clear'])->name('keranjang.clear');
 
 // <--- Checkout --->
-Route::get('/checkout', [CheckoutController::class, 'checkout']);
+Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'prosesCheckout'])->name('checkout.proses');
 
 // <--- Rekap dan dashboard --->
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
@@ -141,4 +142,4 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/search/autocomplete', [SearchController::class, 'autocomplete'])->name('search.autocomplete');
 
 // <--- Resi / Tracking --->
-Route::get('/resi', [ResiController::class, 'index'])->name('resi');
+Route::get('/resi', [ResiController::class, 'index'])->name('resi.index');
