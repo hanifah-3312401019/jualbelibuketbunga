@@ -25,7 +25,7 @@ use App\Http\Controllers\ResiController;
 use App\Http\Controllers\LoginPenjualController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PesananController;
-
+use App\Http\Controllers\RiwayatPesananController;
 
 // Route dasar Laravel
 // <--- Route default & halaman umum --->
@@ -150,3 +150,5 @@ Route::get('/produk-penjual', [ProdukPenjualController::class, 'index'])->name('
 
 Route::get('/resi', [ResiController::class, 'index'])->name('resi.index');
 
+// <--- Riwayat Pesanan Pembeli--->
+Route::get('/riwayat-pesanan', [RiwayatPesananController::class, 'index'])->name('riwayat.pesanan');
