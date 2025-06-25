@@ -26,11 +26,30 @@ class KeranjangController extends Controller
             return redirect()->back()->with('error', 'Stok tidak mencukupi.');
         }
 
-        Keranjang::create([
-            'produk_id' => $request->produk_id,
-            'kuantitas' => $kuantitas,
-            'user_id' => auth()->id(),
-        ]);
+        // CEK APAKAH PRODUK SUDAH ADA DI KERANJANG USER YANG SAMA
+        $keranjang = Keranjang::where('user_id', auth()->id())
+            ->where('produk_id', $request->produk_id)
+            ->first();
+
+        if ($keranjang) {
+            // GABUNGKAN KUANTITAS
+            $kuantitasBaru = $keranjang->kuantitas + $kuantitas;
+
+            if ($kuantitasBaru > $produk->stok) {
+                return redirect()->back()->with('error', 'Total kuantitas melebihi stok.');
+            }
+
+            $keranjang->update([
+                'kuantitas' => $kuantitasBaru
+            ]);
+        } else {
+            // JIKA BELUM ADA, BUAT BARU
+            Keranjang::create([
+                'produk_id' => $request->produk_id,
+                'kuantitas' => $kuantitas,
+                'user_id' => auth()->id(),
+            ]);
+        }
 
         return redirect()->route('pages.keranjang.index')
             ->with('info', 'Produk berhasil ditambahkan ke keranjang.');
