@@ -7,11 +7,24 @@ use Illuminate\Http\Request;
 
 class ProdukPenjualController extends Controller
 {
-    public function index()
-    {
-        $produks = Produk::all();
-        return view('pages.daftar_produk', compact('produks'));
+    public function index(Request $request) // ⬅️ Tambahkan Request
+{
+    $query = Produk::query(); // ⬅️ Gunakan query builder
+
+    // Tambahan: logika filter pencarian
+    if ($request->has('cari') && $request->cari != '') {
+        $keyword = $request->cari;
+        $query->where(function ($q) use ($keyword) {
+            $q->where('nama', 'like', "%$keyword%")
+              ->orWhere('kategori', 'like', "%$keyword%")
+              ->orWhere('deskripsi', 'like', "%$keyword%");
+        });
     }
+
+    $produks = $query->get(); // Tetap pakai get()
+    return view('pages.daftar_produk', compact('produks'));
+}
+
 
     public function create()
     {
@@ -82,4 +95,6 @@ class ProdukPenjualController extends Controller
         $produk->delete();
         return redirect()->route('produk-penjual.index')->with('success', 'Produk berhasil dihapus!');
     }
+
+
 }

@@ -15,12 +15,14 @@
     </div>
 
     {{-- Kolom Cari Produk --}}
-    <div class="mb-4">
-        <form method="GET" action="{{ route('produk-penjual.index') }}" class="max-w-xs">
-            <input type="text" name="cari" placeholder="Cari produk..." value="{{ request('cari') }}"
-                   class="border rounded-md px-4 py-2 w-full">
-        </form>
-    </div>
+<div class="mb-4">
+    <form method="GET" action="{{ route('produk-penjual.index') }}" class="flex gap-2 max-w-xs">
+        <input type="text" name="cari" placeholder="Cari produk" value="{{ request('cari') }}"
+               class="border rounded-md px-4 py-2 w-full">
+        <button type="submit" class="bg-blue-200 px-4 rounded hover:bg-blue-300">Cari</button>
+    </form>
+</div>
+
 
     @if (session('success'))
         <div class="mb-4 p-4 bg-green-200 text-green-800 rounded">

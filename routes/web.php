@@ -25,7 +25,8 @@ use App\Http\Controllers\ResiController;
 use App\Http\Controllers\LoginPenjualController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\DaftarPesananController;
-
+use App\Http\Controllers\PesananController;
+use App\Http\Controllers\RiwayatPesananController;
 
 // Route dasar Laravel
 // <--- Route default & halaman umum --->
@@ -145,9 +146,15 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/search/autocomplete', [SearchController::class, 'autocomplete'])->name('search.autocomplete');
 
 // <--- Resi / Tracking --->
+Route::get('/resi', [ResiController::class, 'index'])->name('resi');
+Route::get('/produk-penjual', [ProdukPenjualController::class, 'index'])->name('produk-penjual.index');
+
 Route::get('/resi', [ResiController::class, 'index'])->name('resi.index');
 
 // <--- Rekap Penjualan & Export --->
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
 Route::get('/rekap-penjualan/export/pdf', [RekapPenjualanController::class, 'exportPdf'])->name('rekap.exportPdf');
 Route::get('/rekap-penjualan/export/excel', [RekapPenjualanController::class, 'exportExcel'])->name('rekap.exportExcel');
+
+// <--- Riwayat Pesanan Pembeli--->
+Route::get('/riwayat-pesanan', [RiwayatPesananController::class, 'index'])->name('riwayat.pesanan');

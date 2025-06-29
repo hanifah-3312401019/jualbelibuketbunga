@@ -1,5 +1,3 @@
-
-
 @include('components.navbar')
 
 <!-- Keranjang -->
@@ -37,11 +35,21 @@
           <td class="py-4 px-4 font-medium">{{ $item->produk->nama }}</td>
           <td class="py-4 px-4 text-green-600 font-semibold">Rp{{ number_format($item->produk->harga, 0, ',', '.') }}</td>
           <td class="py-4 px-4">
-            <form action="{{ route('keranjang.update', $item->id) }}" method="POST" class="flex justify-center items-center gap-2">
+            <form action="{{ route('keranjang.update', $item->id) }}" method="POST" class="flex justify-center items-center gap-2" onsubmit="return false;">
               @csrf
               @method('PUT')
-              <input class="w-16 text-center border border-gray-300 rounded-md py-1" max="{{ $item->produk->stok }}" min="1" name="kuantitas" type="number" value="{{ $item->kuantitas }}"/>
-              <button class="font-bold text-pink-800 hover:underline text-sm" type="submit">Update</button>
+              <button type="button" onclick="decreaseQty({{ $item->id }})" class="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">-</button>
+              <input 
+                id="cartQuantity{{ $item->id }}" 
+                class="w-12 text-center border border-gray-300 rounded py-1" 
+                type="number" 
+                name="kuantitas" 
+                value="{{ $item->kuantitas }}" 
+                min="1" 
+                max="{{ $item->produk->stok }}" 
+                readonly>
+              <button type="button" onclick="increaseQty({{ $item->id }}, {{ $item->produk->stok }})" class="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">+</button>
+              <input type="hidden" name="update_url" value="{{ route('keranjang.update', $item->id) }}">
             </form>
           </td>
           <td class="py-4 px-4 font-semibold" id="totalHarga{{ $item->id }}" data-harga="{{ $item->produk->harga }}">
@@ -77,6 +85,9 @@
       qty++;
       qtyInput.value = qty;
       updateTotal(id, qty);
+      sendUpdate(id, qty);
+    } else {
+      alert("Jumlah melebihi stok tersedia!");
     }
   }
 
@@ -87,6 +98,7 @@
       qty--;
       qtyInput.value = qty;
       updateTotal(id, qty);
+      sendUpdate(id, qty);
     }
   }
 
@@ -96,6 +108,28 @@
     const harga = hargaSatuan * qty;
     totalHargaDisplay.textContent = 'Rp' + harga.toLocaleString('id-ID');
   }
+
+  function sendUpdate(id, qty) {
+    const form = document.querySelector(`form[action$="/${id}"]`);
+    const token = form.querySelector('input[name="_token"]').value;
+    const url = form.querySelector('input[name="update_url"]').value;
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': token,
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body: JSON.stringify({
+        _method: 'PUT',
+        kuantitas: qty
+      })
+    }).then(response => {
+      if (!response.ok) {
+        alert('Gagal memperbarui kuantitas.');
+      }
+    });
+  }
 </script>
 </body>
-
