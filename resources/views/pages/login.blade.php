@@ -39,7 +39,7 @@
                 @csrf
                 <div>
                     <label class="block mb-1 font-semibold text-gray-700">Email :</label>
-                    <input type="email" name="email" placeholder="bloomify@gmail.com" required
+                    <input type="email" name="email" placeholder="Masukkan Email Anda" required
                         class="w-full rounded-full border border-gray-400 px-5 py-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-pink-200 text-gray-700 placeholder:text-gray-400" />
                 </div>
                 <div>

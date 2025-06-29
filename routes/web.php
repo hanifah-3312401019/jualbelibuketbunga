@@ -24,7 +24,7 @@ use App\Http\Controllers\ProfilPenjualController;
 use App\Http\Controllers\ResiController;
 use App\Http\Controllers\LoginPenjualController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\PesananController;
+use App\Http\Controllers\DaftarPesananController;
 
 
 // Route dasar Laravel
@@ -115,8 +115,8 @@ Route::post('/checkout', [CheckoutController::class, 'prosesCheckout'])->name('c
 // <--- Rekap dan dashboard --->
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
 Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
-Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
-Route::get('/dashboard-penjual/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
+Route::get('/daftar-pesanan', [DaftarPesananController::class, 'index'])->name('pesanan.index');
+Route::get('/dashboard-penjual/pesanan', [DaftarPesananController::class, 'index'])->name('pesanan.index');
 
 // <--- Edit Profil Pengguna --->
 Route::get('/editprofil', [UserProfileController::class, 'edit']);
@@ -146,3 +146,8 @@ Route::get('/search/autocomplete', [SearchController::class, 'autocomplete'])->n
 
 // <--- Resi / Tracking --->
 Route::get('/resi', [ResiController::class, 'index'])->name('resi.index');
+
+// <--- Rekap Penjualan & Export --->
+Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
+Route::get('/rekap-penjualan/export/pdf', [RekapPenjualanController::class, 'exportPdf'])->name('rekap.exportPdf');
+Route::get('/rekap-penjualan/export/excel', [RekapPenjualanController::class, 'exportExcel'])->name('rekap.exportExcel');

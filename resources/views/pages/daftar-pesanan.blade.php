@@ -9,7 +9,7 @@
     <table class="min-w-full divide-y divide-gray-200 text-sm">
         <thead class="bg-purple-100 text-gray-700 font-semibold">
             <tr>
-                <th class="px-4 py-3 text-left">#</th>
+                <th class="px-4 py-3 text-left">No.</th>
                 <th class="px-4 py-3 text-left">Nama Pembeli</th>
                 <th class="px-4 py-3 text-left">Produk</th>
                 <th class="px-4 py-3 text-left">Jumlah</th>

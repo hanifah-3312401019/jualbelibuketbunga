@@ -25,29 +25,40 @@
     <aside class="w-64 bg-gradient-to-b from-[#E8E3EF] to-[#FFFFFF] shadow-md flex flex-col justify-between p-4">
         <div>
             <div class="text-center mb-6">
-                <img src="{{ asset('images/Bloomify.png') }}" alt="Bloomify" class="mx-auto h-14 mb-2">
-                <h1 class="text-xl font-bold">Bloomify</h1>
-                <p class="text-xs text-gray-500">Bouquet Flowers</p>
-            </div>
-            <nav class="space-y-2 text-sm">
-                <a href="{{ route('dashboard.penjual') }}" class="flex items-center px-4 py-2 bg-pink-200 rounded-lg font-medium text-gray-700">
-                    <i class="fa-solid fa-house mr-3"></i> Dashboard
-                </a>
-                <a href="{{ route('produk-penjual.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
-                    <i class="fa-solid fa-box mr-3"></i> Daftar Produk
-                </a>
-                <a href="{{ route('rekap.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
-                    <i class="fa-solid fa-file-alt mr-3"></i> Rekapitulasi Penjualan
-                </a>
-                <a href="{{ route('kategori.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
-                    <i class="fa-solid fa-tags mr-3"></i> Kategori Produk
-                </a>
-                <a href="{{ route('pesanan.index') }}" class="flex items-center px-4 py-2 hover:bg-pink-200 rounded-lg text-gray-700">
-                    <i class="fa-solid fa-cart-shopping mr-3"></i> Daftar Pesanan
-                </a>
-            </nav>
+            <img src="{{ asset('images/Bloomify.png') }}" alt="Bloomify" class="mx-auto h-14 mb-2">
+            <h1 class="text-xl font-bold">Bloomify</h1>
+            <p class="text-xs text-gray-500">Bouquet Flowers</p>
         </div>
-    </aside>
+        <nav class="space-y-2 text-sm">
+            <a href="{{ route('dashboard.penjual') }}" 
+               class="flex items-center px-4 py-2 rounded-lg font-medium text-gray-700
+               {{ request()->routeIs('dashboard.penjual') ? 'bg-pink-200' : 'hover:bg-pink-200' }}">
+                <i class="fa-solid fa-house mr-3"></i> Dashboard
+            </a>
+            <a href="{{ route('produk-penjual.index') }}" 
+               class="flex items-center px-4 py-2 rounded-lg text-gray-700
+               {{ request()->routeIs('produk-penjual.*') ? 'bg-pink-200' : 'hover:bg-pink-200' }}">
+                <i class="fa-solid fa-box mr-3"></i> Daftar Produk
+            </a>
+            <a href="{{ route('rekap.index') }}" 
+               class="flex items-center px-4 py-2 rounded-lg text-gray-700
+               {{ request()->routeIs('rekap.*') ? 'bg-pink-200' : 'hover:bg-pink-200' }}">
+                <i class="fa-solid fa-file-alt mr-3"></i> Rekapitulasi Penjualan
+            </a>
+            <a href="{{ route('kategori.index') }}" 
+               class="flex items-center px-4 py-2 rounded-lg text-gray-700
+               {{ request()->routeIs('kategori.*') ? 'bg-pink-200' : 'hover:bg-pink-200' }}">
+                <i class="fa-solid fa-tags mr-3"></i> Kategori Produk
+            </a>
+            <a href="{{ route('pesanan.index') }}" 
+               class="flex items-center px-4 py-2 rounded-lg text-gray-700
+               {{ request()->routeIs('pesanan.*') ? 'bg-pink-200' : 'hover:bg-pink-200' }}">
+                <i class="fa-solid fa-list mr-3"></i> Daftar Pesanan
+            </a>
+        </nav>
+    </div>
+</aside>
+
 
     <!-- Main Area -->
     <main class="flex-1 flex flex-col">

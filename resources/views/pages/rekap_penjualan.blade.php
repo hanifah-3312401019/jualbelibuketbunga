@@ -3,11 +3,23 @@
 @section('title', 'Rekapitulasi Penjualan')
 
 @section('content')
-<div class="flex justify-between items-center mb-6">
-    <h1 class="text-2xl font-bold flex items-center gap-2">
-        📋 REKAP PENJUALAN
-    </h1>
+<h1 class="text-2xl font-bold mb-4">📋 REKAP PENJUALAN & TOTAL OMZET</h1>
+
+<form method="GET" action="{{ route('rekap.index') }}" class="mb-4">
+    <select name="filter" class="border px-2 py-1">
+        <option value="mingguan" {{ $filter == 'mingguan' ? 'selected' : '' }}>Mingguan</option>
+        <option value="bulanan" {{ $filter == 'bulanan' ? 'selected' : '' }}>Bulanan</option>
+    </select>
+    <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded">Filter</button>
+</form>
+
+<div class="mb-4">
+    <p class="text-lg">Periode: <strong>{{ ucfirst($filter) }}</strong></p>
+    <p class="text-lg">Total Pendapatan: <strong>Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</strong></p>
 </div>
+
+<a href="{{ route('rekap.exportPdf', ['filter' => $filter]) }}" class="bg-red-500 text-white px-3 py-1 rounded">Export PDF</a>
+<a href="{{ route('rekap.exportExcel', ['filter' => $filter]) }}" class="bg-green-500 text-white px-3 py-1 rounded ml-2">Export Excel</a>
 
 <div class="overflow-x-auto mt-6">
     <table class="w-full border text-sm text-left">
@@ -25,11 +37,11 @@
             @foreach ($rekapPenjualan as $index => $rekap)
             <tr>
                 <td class="border px-2 py-2">{{ $index + 1 }}</td>
-                <td class="border px-2 py-2">{{ \Carbon\Carbon::parse($rekap->tanggal)->format('d M Y') }}</td>
-                <td class="border px-2 py-2">{{ $rekap->nama_produk }}</td>
-                <td class="border px-2 py-2">Rp {{ number_format($rekap->harga_produk, 0, ',', '.') }}</td>
-                <td class="border px-2 py-2">{{ $rekap->jumlah_produk }}</td>
-                <td class="border px-2 py-2">Rp {{ number_format($rekap->total_harga, 0, ',', '.') }}</td>
+                <td class="border px-2 py-2">{{ \Carbon\Carbon::parse($rekap->created_at)->format('d M Y') }}</td>
+                <td class="border px-2 py-2">-</td> {{-- Kalau mau ada nama produk, nanti tinggal diisi sesuai relasi produk --}}
+                <td class="border px-2 py-2">Rp {{ number_format($rekap->total, 0, ',', '.') }}</td>
+                <td class="border px-2 py-2">-</td>
+                <td class="border px-2 py-2">Rp {{ number_format($rekap->total, 0, ',', '.') }}</td>
             </tr>
             @endforeach
         </tbody>

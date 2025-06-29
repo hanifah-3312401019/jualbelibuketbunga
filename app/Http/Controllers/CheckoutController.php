@@ -96,6 +96,8 @@ class CheckoutController extends Controller
                 'order_id' => $order_id,
                 'gross_amount' => $total,
             ],
+            'enabled_payments' => ['gopay', 'qris'],
+            
             'customer_details' => [
                 'first_name' => $user->name,
                 'email' => $user->email,
