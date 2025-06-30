@@ -13,18 +13,18 @@ class Pesanan extends Model
     protected $table = 'pesanan';
 
     protected $fillable = [
-        'user_id',
+        'pengguna_id',
         'nama_penerima',
         'telepon',
         'alamat',
         'total',
         'metode_pembayaran',
-        'status', // tambahkan jika ingin menyimpan status
+        'status',
     ];
 
-    public function user()
+    public function pengguna()
     {
-        return $this->belongsTo(Pengguna::class, 'user_id');
+        return $this->belongsTo(Pengguna::class, 'pengguna_id');
     }
 
     public function detail()

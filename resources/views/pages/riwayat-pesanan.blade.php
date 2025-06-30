@@ -17,27 +17,27 @@
 
     <!-- Content -->
     <section class="flex-1 px-4 py-12">
-    <div class="bg-white w-full max-w-4xl p-8 rounded-xl shadow-md">
-        <h1 class="text-2xl font-bold text-center text-black mb-8">Riwayat Pesanan</h1>
+        <div class="bg-white w-full max-w-4xl p-8 rounded-xl shadow-md">
+            <h1 class="text-2xl font-bold text-center text-black mb-8">Riwayat Pesanan</h1>
 
-        @if ($pesanan->isEmpty())
-            <p class="text-center text-gray-500">Belum ada riwayat pesanan.</p>
-        @else
-            <div class="space-y-4">
-                @foreach ($pesanan as $item)
-                    <div class="border p-4 rounded-lg shadow-sm">
-                        <p><strong>ID Pesanan:</strong> {{ $item->id }}</p>
-                        <p><strong>Nama Penerima:</strong> {{ $item->nama_penerima }}</p>
-                        <p><strong>Total:</strong> Rp{{ number_format($item->total, 0, ',', '.') }}</p>
-                        <p><strong>Status:</strong> {{ ucfirst($item->status) }}</p>
-                        <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y, H:i') }}</p>
-                    </div>
-                @endforeach
-            </div>
-        @endif
+            @if ($pesanan->isEmpty())
+                <p class="text-center text-gray-500">Belum ada riwayat pesanan.</p>
+            @else
+                <div class="space-y-4">
+                    @foreach ($pesanan as $item)
+                        <div class="border p-4 rounded-lg shadow-sm">
+                            <p><strong>ID Pesanan:</strong> {{ $item->id }}</p>
+                            <p><strong>Nama Penerima:</strong> {{ $item->nama_penerima }}</p>
+                            <p><strong>Total:</strong> Rp{{ number_format($item->total, 0, ',', '.') }}</p>
+                            <p><strong>Status:</strong> {{ ucfirst($item->status) }}</p>
+                            <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y, H:i') }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
 
-    </div>
-</section>
+        </div>
+    </section>
 </main>
 
 @include('components.footer_')
