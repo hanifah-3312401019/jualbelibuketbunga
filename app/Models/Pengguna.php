@@ -10,7 +10,7 @@ class Pengguna extends Authenticatable
 {
     use Notifiable, HasFactory;
 
-    protected $table = 'pengguna'; // Remove the 'string' type declaration
+    protected $table = 'pengguna';
 
     protected $fillable = [
         'nama',
@@ -19,18 +19,26 @@ class Pengguna extends Authenticatable
         'nama_pengguna',
         'no_telepon',
         'foto',
-        // Add other fillable fields as needed
+        // Tambahkan field lain jika ada
     ];
 
-    // If you want to hide certain attributes when the model is converted to array/JSON
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    // If you want to cast attributes to specific types
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed', // Laravel 10+ automatic password hashing
     ];
+
+    /**
+     * Mutator untuk otomatis hash password jika belum di-hash.
+     */
+    public function setPasswordAttribute($value)
+    {
+        // Jika sudah ter-hash (pakai bcrypt), jangan hash ulang
+        $this->attributes['password'] = \Illuminate\Support\Str::startsWith($value, '$2y$')
+            ? $value
+            : bcrypt($value);
+    }
 }

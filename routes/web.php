@@ -102,12 +102,14 @@ Route::get('/kategori_produk/{id}/edit', [KategoriProdukController::class, 'edit
 Route::put('/kategori_produk/{id}', [KategoriProdukController::class, 'update'])->name('kategori.update');
 Route::delete('/kategori_produk/{id}', [KategoriProdukController::class, 'destroy'])->name('kategori.destroy');
 
-// <--- Keranjang --->
-Route::get('/keranjang', [KeranjangController::class, 'index'])->name('pages.keranjang.index');
-Route::post('/keranjang', [KeranjangController::class, 'store'])->name('pages.keranjang.store');
-Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('pages.keranjang.destroy');
-Route::put('/keranjang/{id}', [KeranjangController::class, 'update'])->name('keranjang.update');
-Route::post('/keranjang/clear', [KeranjangController::class, 'clear'])->name('keranjang.clear');
+// <--- Keranjang (hanya untuk pengguna login) --->
+Route::middleware(['auth:pengguna'])->group(function () {
+    Route::get('/keranjang', [KeranjangController::class, 'index'])->name('pages.keranjang.index');
+    Route::post('/keranjang', [KeranjangController::class, 'store'])->name('pages.keranjang.store');
+    Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('pages.keranjang.destroy');
+    Route::put('/keranjang/{id}', [KeranjangController::class, 'update'])->name('keranjang.update');
+    Route::post('/keranjang/clear', [KeranjangController::class, 'clear'])->name('keranjang.clear');
+});
 
 // <--- Checkout --->
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');

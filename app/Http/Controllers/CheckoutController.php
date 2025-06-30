@@ -12,7 +12,6 @@ use Midtrans\Config;
 
 class CheckoutController extends Controller
 {
-    // Konfigurasi Midtrans
     private function _configureMidtrans()
     {
         Config::$serverKey = config('midtrans.server_key');
@@ -21,10 +20,18 @@ class CheckoutController extends Controller
         Config::$is3ds = true;
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
+        // Ambil ID keranjang yang dichecklist
+        $terpilih = $request->input('keranjang_terpilih', []);
+
+        if (empty($terpilih)) {
+            return redirect()->route('pages.keranjang.index')->with('error', 'Silakan pilih produk yang ingin di-checkout.');
+        }
+
         $keranjang = Keranjang::with('produk')
-            ->where('user_id', Auth::id())
+            ->where('pengguna_id', Auth::id())
+            ->whereIn('id', $terpilih)
             ->get();
 
         return view('pages.checkout', compact('keranjang'));
@@ -36,27 +43,28 @@ class CheckoutController extends Controller
             'nama_penerima' => 'required',
             'telepon' => 'required',
             'alamat' => 'required',
-            // metode_pembayaran tidak perlu lagi divalidasi
         ]);
 
         $user = Auth::user();
+
+        // Ambil ulang ID keranjang terpilih dari hidden input
+        $keranjangId = $request->input('keranjang_terpilih', []);
         $keranjang = Keranjang::with('produk')
-            ->where('user_id', $user->id)
+            ->where('pengguna_id', $user->id)
+            ->whereIn('id', $keranjangId)
             ->get();
 
         if ($keranjang->isEmpty()) {
-            return redirect()->back()->with('error', 'Keranjang kamu kosong.');
+            return redirect()->back()->with('error', 'Tidak ada produk yang dipilih.');
         }
 
-        // Hitung total
         $total = $keranjang->sum(function ($item) {
             return $item->produk->harga * $item->kuantitas;
         });
 
-        // Simpan pesanan
         $pesanan = Pesanan::create([
-            'user_id' => $user->id,
-            'order_id' => '', // sementara kosong
+            'pengguna_id' => $user->id,
+            'order_id' => '',
             'nama_penerima' => $request->nama_penerima,
             'telepon' => $request->telepon,
             'alamat' => $request->alamat,
@@ -64,12 +72,11 @@ class CheckoutController extends Controller
             'metode_pembayaran' => 'midtrans',
             'status' => 'pending',
         ]);
-        
+
         $order_id = 'ORDER-' . $pesanan->id . '-' . time();
         $pesanan->order_id = $order_id;
         $pesanan->save();
 
-        // Simpan detail pesanan
         foreach ($keranjang as $item) {
             if (!$item->produk) {
                 return back()->with('error', 'Produk tidak ditemukan untuk item keranjang ID: ' . $item->id);
@@ -84,10 +91,11 @@ class CheckoutController extends Controller
             ]);
         }
 
-        // Hapus keranjang setelah pesanan dibuat
-        Keranjang::where('user_id', $user->id)->delete();
+        // Hapus hanya item yang sudah di-checkout
+        Keranjang::where('pengguna_id', $user->id)
+            ->whereIn('id', $keranjangId)
+            ->delete();
 
-        // Midtrans Snap Token
         $this->_configureMidtrans();
 
         $params = [
@@ -95,19 +103,18 @@ class CheckoutController extends Controller
                 'order_id' => $order_id,
                 'gross_amount' => $total,
             ],
-            
             'customer_details' => [
-                'first_name' => $user->name,
+                'first_name' => $user->nama,
                 'email' => $user->email,
                 'phone' => $request->telepon,
             ],
         ];
 
         try {
-    $snapToken = Snap::getSnapToken($params);
-} catch (\Exception $e) {
-    dd('Gagal generate SnapToken:', $e->getMessage());
-}
+            $snapToken = Snap::getSnapToken($params);
+        } catch (\Exception $e) {
+            dd('Gagal generate SnapToken:', $e->getMessage());
+        }
 
         return view('pages.midtrans-payment', compact('snapToken', 'pesanan'));
     }

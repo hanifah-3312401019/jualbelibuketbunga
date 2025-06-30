@@ -11,7 +11,7 @@ class KeranjangController extends Controller
     public function index()
     {
         $keranjang = Keranjang::with('produk')
-            ->where('user_id', auth()->id())
+            ->where('pengguna_id', auth()->guard('pengguna')->id()) // ✅ disesuaikan
             ->get();
 
         return view('pages.keranjang', compact('keranjang'));
@@ -26,8 +26,8 @@ class KeranjangController extends Controller
             return redirect()->back()->with('error', 'Stok tidak mencukupi.');
         }
 
-        // CEK APAKAH PRODUK SUDAH ADA DI KERANJANG USER YANG SAMA
-        $keranjang = Keranjang::where('user_id', auth()->id())
+        // CEK APAKAH PRODUK SUDAH ADA DI KERANJANG PENGGUNA YANG SAMA
+        $keranjang = Keranjang::where('pengguna_id', auth()->guard('pengguna')->id())
             ->where('produk_id', $request->produk_id)
             ->first();
 
@@ -47,7 +47,7 @@ class KeranjangController extends Controller
             Keranjang::create([
                 'produk_id' => $request->produk_id,
                 'kuantitas' => $kuantitas,
-                'user_id' => auth()->id(),
+                'pengguna_id' => auth()->guard('pengguna')->id(), // ✅ disesuaikan
             ]);
         }
 
@@ -82,10 +82,9 @@ class KeranjangController extends Controller
 
     public function clear()
     {
-        Keranjang::where('user_id', auth()->id())->delete();
+        Keranjang::where('pengguna_id', auth()->guard('pengguna')->id())->delete(); // ✅ disesuaikan
 
         return redirect()->route('pages.keranjang.index')
             ->with('info', 'Keranjang dikosongkan.');
     }
 }
-

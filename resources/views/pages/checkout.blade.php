@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - Bloomify</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-
 </head>
 <body class="bg-gray-100 font-sans">
 
@@ -14,9 +12,10 @@
   <form action="{{ route('checkout.proses') }}" method="POST">
     @csrf
 
-
-
-
+    <!-- ID keranjang yang dichecklist -->
+    @foreach($keranjang as $item)
+      <input type="hidden" name="keranjang_terpilih[]" value="{{ $item->id }}">
+    @endforeach
 
     <div class="mb-6 flex items-center justify-between">
       <h2 class="text-2xl font-bold">Checkout</h2>
@@ -31,8 +30,6 @@
       <textarea name="alamat" placeholder="Alamat Lengkap" class="w-full border px-4 py-2 mb-2 rounded" required></textarea>
     </section>
 
-
-
     <!-- Produk Dipesan -->
     <section class="overflow-x-auto mb-6">
       <h2 class="text-xl font-bold mb-2">Produk Dipesan</h2>
@@ -46,33 +43,32 @@
           </tr>
         </thead>
         <tbody>
-  @php $total = 0; @endphp
-  @foreach($keranjang as $item)
-    @php
-      $subtotal = $item->produk->harga * $item->kuantitas;
-      $total += $subtotal;
-    @endphp
-    <tr>
-      <td class="border border-black px-4 py-2">
-        {{ $item->produk->nama }}
-        <input type="hidden" name="produk[]" value="{{ $item->produk->nama }}">
-      </td>
-      <td class="border border-black px-4 py-2">
-        {{ number_format($item->produk->harga) }}
-        <input type="hidden" name="harga[]" value="{{ $item->produk->harga }}">
-      </td>
-      <td class="border border-black px-4 py-2">
-        {{ $item->kuantitas }}
-        <input type="hidden" name="jumlah[]" value="{{ $item->kuantitas }}">
-      </td>
-      <td class="border border-black px-4 py-2">
-        {{ number_format($subtotal) }}
-        <input type="hidden" name="subtotal[]" value="{{ $subtotal }}">
-      </td>
-    </tr>
-  @endforeach
-</tbody>
-
+          @php $total = 0; @endphp
+          @foreach($keranjang as $item)
+            @php
+              $subtotal = $item->produk->harga * $item->kuantitas;
+              $total += $subtotal;
+            @endphp
+            <tr>
+              <td class="border border-black px-4 py-2">
+                {{ $item->produk->nama }}
+                <input type="hidden" name="produk[]" value="{{ $item->produk->nama }}">
+              </td>
+              <td class="border border-black px-4 py-2">
+                {{ number_format($item->produk->harga) }}
+                <input type="hidden" name="harga[]" value="{{ $item->produk->harga }}">
+              </td>
+              <td class="border border-black px-4 py-2">
+                {{ $item->kuantitas }}
+                <input type="hidden" name="jumlah[]" value="{{ $item->kuantitas }}">
+              </td>
+              <td class="border border-black px-4 py-2">
+                {{ number_format($subtotal) }}
+                <input type="hidden" name="subtotal[]" value="{{ $subtotal }}">
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
       </table>
     </section>
 
@@ -85,12 +81,10 @@
     </section>
 
     <!-- Total -->
-<section class="mb-6">
-  <label class="block font-bold mb-1">Total Pembayaran</label>
-  <input type="text" name="total" value="{{ $total }}" class="w-full border px-4 py-2 rounded bg-gray-100" readonly>
-</section>
-
-
+    <section class="mb-6">
+      <label class="block font-bold mb-1">Total Pembayaran</label>
+      <input type="text" name="total" value="{{ $total }}" class="w-full border px-4 py-2 rounded bg-gray-100" readonly>
+    </section>
 
     <div class="text-right">
       <button type="submit" class="bg-pink-500 text-white px-6 py-2 rounded-md hover:bg-pink-600">
@@ -102,3 +96,4 @@
 
 </body>
 </html>
+
