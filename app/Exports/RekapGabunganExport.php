@@ -26,7 +26,7 @@ class RekapGabunganExport implements FromView
             $query->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()]);
         }
 
-        $rekapPenjualan = $query->get();
+        $rekapPenjualan = $query->with('detail.produk')->get();
         $totalPendapatan = $query->sum('total');
 
         return view('pages.export_excel', [

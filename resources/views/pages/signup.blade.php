@@ -33,12 +33,12 @@
                 @csrf
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nama :</label>
-                    <input id="name" name="name" type="text" placeholder="Hwang Renjun" required
+                    <input id="name" name="name" type="text" placeholder="Masukkan Nama Anda" required
                         class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-300 placeholder:text-gray-300" />
                 </div>
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email :</label>
-                    <input id="email" name="email" type="email" placeholder="bloomify@gmail.com" required
+                    <input id="email" name="email" type="email" placeholder="Masukkan Email Anda" required
                         class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-300 placeholder:text-gray-300" />
                 </div>
                 <div>

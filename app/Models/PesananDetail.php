@@ -13,6 +13,7 @@ class PesananDetail extends Model
 
     protected $fillable = [
     'pesanan_id',
+    'produk_id',
     'produk',         // Ganti dari produk_id ke produk
     'harga',
     'jumlah',
@@ -21,7 +22,7 @@ class PesananDetail extends Model
 
     public function pesanan()
     {
-        return $this->belongsTo(Pesanan::class, 'pesanan_id');
+        return $this->belongsTo(Pesanan::class, 'pesanan_id', 'id');
     }
 
     public function produk()

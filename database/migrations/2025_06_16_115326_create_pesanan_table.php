@@ -15,9 +15,10 @@ return new class extends Migration {
             $table->text('alamat');
             $table->integer('total');
             $table->string('metode_pembayaran');
+            $table->string('status')->default('pending');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('pengguna')->onDelete('cascade');
         });
     }
 

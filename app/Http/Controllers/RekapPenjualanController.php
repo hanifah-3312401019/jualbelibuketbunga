@@ -25,7 +25,7 @@ class RekapPenjualanController extends Controller
 
         $totalPendapatan = $query->sum('total');
 
-        $rekapPenjualan = $query->get();
+        $rekapPenjualan = $query->with('detail.produk')->get();
 
         return view('pages.rekap_penjualan', compact('filter', 'totalPendapatan', 'rekapPenjualan'));
     }
@@ -43,7 +43,7 @@ class RekapPenjualanController extends Controller
         }
 
         $totalPendapatan = $query->sum('total');
-        $rekapPenjualan = $query->get();
+        $rekapPenjualan = $query->with('detail.produk')->get();
 
         $pdf = PDF::loadView('pages.export_pdf', compact('filter', 'totalPendapatan', 'rekapPenjualan'));
 

@@ -21,16 +21,31 @@
             @forelse($pesanan as $item)
             <tr>
                 <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                <td class="px-4 py-2 align-top">{{ $item->user->name ?? '-' }}</td>
-                <td class="px-4 py-2">
-                    {{ $item->produk->nama ?? 'Produk tidak ditemukan' }}
+                <td class="px-4 py-2 align-top">{{ $item->user->nama ?? '-' }}</td>
+                <td class="px-4 py-2 align-top">
+                    @foreach ($item->detail as $d)
+                        {{ $d->produk->nama ?? $d->produk }}<br>
+                    @endforeach
                 </td>
-                <td class="px-4 py-2">{{ $item->jumlah }}</td>
-                <td class="px-4 py-2">Rp{{ number_format($item->total_harga, 0, ',', '.') }}</td>
+                <td class="px-4 py-2 align-top">
+                    @foreach ($item->detail as $d)
+                        {{ $d->jumlah }}<br>
+                    @endforeach
+                </td>
+                <td class="px-4 py-2 align-top">
+                    Rp{{ number_format($item->detail->sum('subtotal'), 0, ',', '.') }}
+                </td>
                 <td class="px-4 py-2">
-                    <span class="inline-block px-3 py-1 rounded-full text-xs bg-green-100 text-green-700">
-                        {{ ucfirst($item->status) }}
-                    </span>
+                    <form action="{{ route('pesanan.updateStatus', $item->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <select name="status" onchange="this.form.submit()" class="border rounded px-2 py-1 text-xs">
+                            <option value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="paid" {{ $item->status == 'paid' ? 'selected' : '' }}>Paid</option>
+                            <option value="expired" {{ $item->status == 'expired' ? 'selected' : '' }}>Expired</option>
+                            <option value="failed" {{ $item->status == 'failed' ? 'selected' : '' }}>Failed</option>
+                        </select>
+                    </form>
                 </td>
             </tr>
             @empty

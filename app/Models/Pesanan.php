@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Pengguna;
 
 class Pesanan extends Model
 {
@@ -23,11 +24,11 @@ class Pesanan extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Pengguna::class, 'user_id');
     }
 
     public function detail()
     {
-        return $this->hasMany(\App\Models\PesananDetail::class, 'pesanan_id');
+        return $this->hasMany(PesananDetail::class, 'pesanan_id');
     }
 }

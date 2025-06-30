@@ -17,7 +17,7 @@ class CreateKeranjangTable extends Migration
             
             // Tambahkan foreign key constraints jika diperlukan
             $table->foreign('produk_id')->references('id_produk')->on('produk');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('pengguna')->onDelete('cascade');
         });
     }
 

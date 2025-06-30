@@ -38,10 +38,24 @@
             <tr>
                 <td class="border px-2 py-2">{{ $index + 1 }}</td>
                 <td class="border px-2 py-2">{{ \Carbon\Carbon::parse($rekap->created_at)->format('d M Y') }}</td>
-                <td class="border px-2 py-2">-</td> {{-- Kalau mau ada nama produk, nanti tinggal diisi sesuai relasi produk --}}
-                <td class="border px-2 py-2">Rp {{ number_format($rekap->total, 0, ',', '.') }}</td>
-                <td class="border px-2 py-2">-</td>
-                <td class="border px-2 py-2">Rp {{ number_format($rekap->total, 0, ',', '.') }}</td>
+                <td class="border px-2 py-2">
+                    @foreach ($rekap->detail as $d)
+                        {{ $d->produk->nama ?? $d->produk }}<br>
+                    @endforeach
+                </td>
+                <td class="border px-2 py-2">
+                    @foreach ($rekap->detail as $d)
+                        Rp {{ number_format($d->harga, 0, ',', '.') }}<br>
+                    @endforeach
+                </td>
+                <td class="border px-2 py-2">
+                    @foreach ($rekap->detail as $d)
+                        {{ $d->jumlah }}<br>
+                    @endforeach
+                </td>
+                <td class="border px-2 py-2">
+                    Rp {{ number_format($rekap->detail->sum('subtotal'), 0, ',', '.') }}
+                </td>
             </tr>
             @endforeach
         </tbody>

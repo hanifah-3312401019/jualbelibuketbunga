@@ -77,7 +77,6 @@ class CheckoutController extends Controller
 
             PesananDetail::create([
                 'pesanan_id' => $pesanan->id,
-                'produk_id' => $item->produk->id_produk,
                 'produk' => $item->produk->nama ?? 'Tidak diketahui',
                 'harga' => $item->produk->harga ?? 0,
                 'jumlah' => $item->kuantitas,
@@ -96,7 +95,6 @@ class CheckoutController extends Controller
                 'order_id' => $order_id,
                 'gross_amount' => $total,
             ],
-            'enabled_payments' => ['gopay', 'qris'],
             
             'customer_details' => [
                 'first_name' => $user->name,

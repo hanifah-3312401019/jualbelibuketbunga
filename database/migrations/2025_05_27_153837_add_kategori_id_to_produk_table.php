@@ -17,8 +17,14 @@ class AddKategoriIdToProdukTable extends Migration
     public function down()
     {
         Schema::table('produk', function (Blueprint $table) {
-            $table->dropForeign(['kategori_id']);
-            $table->dropColumn('kategori_id');
+            if (Schema::hasColumn('produk', 'kategori_id')) {
+                try {
+                    $table->dropForeign(['kategori_id']);
+                } catch (\Exception $e) {
+                    // Foreign key tidak ada, lanjut drop column saja
+                }
+                $table->dropColumn('kategori_id');
+            }
         });
     }
 }

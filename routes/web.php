@@ -117,6 +117,7 @@ Route::post('/checkout', [CheckoutController::class, 'prosesCheckout'])->name('c
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');
 Route::get('/dashboard-penjual', [DashboardPenjualController::class, 'index'])->name('dashboard.penjual');
 Route::get('/daftar-pesanan', [DaftarPesananController::class, 'index'])->name('pesanan.index');
+Route::put('/daftar-pesanan/{id}/status', [DaftarPesananController::class, 'updateStatus'])->name('pesanan.updateStatus');
 Route::get('/dashboard-penjual/pesanan', [DaftarPesananController::class, 'index'])->name('pesanan.index');
 
 // <--- Edit Profil Pengguna --->
