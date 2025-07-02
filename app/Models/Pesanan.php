@@ -13,7 +13,7 @@ class Pesanan extends Model
     protected $table = 'pesanan';
 
     protected $fillable = [
-        'pengguna_id',
+        'user_id',
         'nama_penerima',
         'telepon',
         'alamat',

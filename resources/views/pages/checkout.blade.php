@@ -25,9 +25,9 @@
     <!-- Alamat Pengiriman -->
     <section class="mb-6">
       <h2 class="text-xl font-bold">Alamat Pengiriman</h2>
-      <input type="text" name="nama_penerima" placeholder="Nama Penerima" class="w-full border px-4 py-2 mb-2 rounded" required>
-      <input type="text" name="telepon" placeholder="No. Telepon" class="w-full border px-4 py-2 mb-2 rounded" required>
-      <textarea name="alamat" placeholder="Alamat Lengkap" class="w-full border px-4 py-2 mb-2 rounded" required></textarea>
+      <input type="text" name="nama_penerima" value="{{ old('nama_penerima', $user->nama) }}" class="w-full border px-4 py-2 mb-2 rounded" required>
+      <input type="text" name="telepon" value="{{ old('telepon', $user->no_telepon) }}" class="w-full border px-4 py-2 mb-2 rounded" required>
+      <textarea name="alamat" class="w-full border px-4 py-2 mb-2 rounded" required>{{ old('alamat', $user->alamat) }}</textarea>
     </section>
 
     <!-- Produk Dipesan -->

@@ -30,11 +30,13 @@ class CheckoutController extends Controller
         }
 
         $keranjang = Keranjang::with('produk')
-            ->where('pengguna_id', Auth::id())
-            ->whereIn('id', $terpilih)
-            ->get();
+        ->where('user_id', auth()->guard('pengguna')->id())
+        ->whereIn('id', $terpilih)
+        ->get();
 
-        return view('pages.checkout', compact('keranjang'));
+        $user = auth()->guard('pengguna')->user();
+        return view('pages.checkout', compact('keranjang', 'user'));
+
     }
 
     public function prosesCheckout(Request $request)
@@ -45,14 +47,14 @@ class CheckoutController extends Controller
             'alamat' => 'required',
         ]);
 
-        $user = Auth::user();
+        $user = auth()->guard('pengguna')->user();
 
         // Ambil ulang ID keranjang terpilih dari hidden input
         $keranjangId = $request->input('keranjang_terpilih', []);
         $keranjang = Keranjang::with('produk')
-            ->where('pengguna_id', $user->id)
-            ->whereIn('id', $keranjangId)
-            ->get();
+        ->where('user_id', auth()->guard('pengguna')->id())
+        ->whereIn('id', $keranjangId)
+        ->get();
 
         if ($keranjang->isEmpty()) {
             return redirect()->back()->with('error', 'Tidak ada produk yang dipilih.');
@@ -63,7 +65,7 @@ class CheckoutController extends Controller
         });
 
         $pesanan = Pesanan::create([
-            'pengguna_id' => $user->id,
+            'user_id' => $user->id,
             'order_id' => '',
             'nama_penerima' => $request->nama_penerima,
             'telepon' => $request->telepon,
@@ -76,6 +78,30 @@ class CheckoutController extends Controller
         $order_id = 'ORDER-' . $pesanan->id . '-' . time();
         $pesanan->order_id = $order_id;
         $pesanan->save();
+
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => rand(),
+                'gross_amount' => $total,
+            ),
+            'customer_details' => array(
+                'first_name' => 'budi',
+                'last_name' => 'pratama',
+                'email' => 'budi.pra@example.com',
+                'phone' => '08111222333',
+            ),
+        );
+
+    $snapToken = \Midtrans\Snap::getSnapToken($params);
 
         foreach ($keranjang as $item) {
             if (!$item->produk) {
@@ -92,7 +118,7 @@ class CheckoutController extends Controller
         }
 
         // Hapus hanya item yang sudah di-checkout
-        Keranjang::where('pengguna_id', $user->id)
+        Keranjang::where('user_id', $user->id)
             ->whereIn('id', $keranjangId)
             ->delete();
 

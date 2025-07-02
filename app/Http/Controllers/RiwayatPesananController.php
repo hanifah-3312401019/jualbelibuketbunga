@@ -10,7 +10,7 @@ class RiwayatPesananController extends Controller
     public function index()
     {
         $userId = auth()->id();
-        $pesanan = Pesanan::where('pengguna_id', $userId)->latest()->get();
+        $pesanan = Pesanan::where('user_id', $userId)->latest()->get();
 
         return view('pages.riwayat-pesanan', compact('pesanan'));
     }

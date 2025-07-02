@@ -116,27 +116,31 @@
   }
 
   function sendUpdate(id, qty) {
-    const form = document.querySelector(`form[action$="/${id}"]`);
-    const token = form.querySelector('input[name="_token"]').value;
-    const url = form.querySelector('input[name="update_url"]').value;
+  const form = document.querySelector(`form[action$="/${id}"]`);
+  const token = form.querySelector('input[name="_token"]').value;
+  const url = form.querySelector('input[name="update_url"]').value;
 
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': token,
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-      body: JSON.stringify({
-        _method: 'PUT',
-        kuantitas: qty
-      })
-    }).then(response => {
-      if (!response.ok) {
-        alert('Gagal memperbarui kuantitas.');
-      }
-    });
-  }
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': token,
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    body: JSON.stringify({
+      _method: 'PUT',
+      kuantitas: qty
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (!data.success) {
+      alert('Gagal memperbarui kuantitas.');
+    }
+  })
+  .catch(() => alert('Terjadi kesalahan jaringan.'));
+}
+
 </script>
 </body>
 
