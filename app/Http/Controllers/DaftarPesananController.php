@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class DaftarPesananController extends Controller
@@ -11,11 +12,6 @@ class DaftarPesananController extends Controller
     {
         $pesanan = Pesanan::with('detail.produk', 'user')->get();
         return view('pages.daftar-pesanan', compact('pesanan'));
-    }
-
-    public function produk()
-    {
-    return $this->belongsTo(Produk::class, 'produk_id'); // atau 'id_produk' jika beda
     }
 
     public function updateStatus(Request $request, $id)

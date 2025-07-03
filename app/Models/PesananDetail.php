@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Pesanan;
+use App\Models\Produk;
 
 class PesananDetail extends Model
 {
@@ -14,7 +16,6 @@ class PesananDetail extends Model
     protected $fillable = [
     'pesanan_id',
     'produk_id',
-    'produk',         // Ganti dari produk_id ke produk
     'harga',
     'jumlah',
     'subtotal',

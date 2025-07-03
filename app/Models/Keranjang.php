@@ -1,12 +1,14 @@
 <?php
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Keranjang extends Model
 {
     protected $table = 'keranjang';
-    protected $fillable = ['produk_id', 'kuantitas', 'user_id']; // ✅ ganti user_id
+    
+    protected $fillable = ['produk_id', 'kuantitas', 'user_id'];
 
     public function produk()
     {
@@ -15,7 +17,6 @@ class Keranjang extends Model
 
     public function pengguna()
     {
-        return $this->belongsTo(Pengguna::class, 'user_id'); // ✅ ganti user() → pengguna()
+        return $this->belongsTo(Pengguna::class, 'user_id');
     }
 }
-
