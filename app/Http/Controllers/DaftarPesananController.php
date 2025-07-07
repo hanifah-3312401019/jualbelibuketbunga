@@ -10,7 +10,7 @@ class DaftarPesananController extends Controller
 {
     public function index()
     {
-        $pesanan = Pesanan::with('detail.produk', 'user')->get();
+        $pesanan = Pesanan::with('detail.produk', 'pengguna')->get();
         return view('pages.daftar-pesanan', compact('pesanan'));
     }
 

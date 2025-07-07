@@ -25,8 +25,12 @@
                 </div>
             @endforeach
         </div>
+        
+        <!-- Pagination Links -->
+        <div class="mt-8 flex justify-center">
+            {{ $products->links('pagination::tailwind') }}
+        </div>
     </div>
 </main>
 
 @include('components.footer_')
-
