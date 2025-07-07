@@ -1,6 +1,14 @@
 @include('components.navbar')
 
 <div class="bg-white rounded-lg shadow-md max-w-7xl mx-auto mt-10 mb-10 p-8">
+
+  {{-- ✅ Pesan Sukses --}}
+    @if (session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+            {{ session('success') }}
+        </div>
+    @endif
+    
     {{-- Tiga Kolom Info --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="flex flex-col items-center text-center border-r md:border-r-0 md:border-b-0 border-b pb-6 md:pb-0 md:pr-6">
@@ -27,49 +35,60 @@
     </div>
 
     {{-- Form --}}
-    <form class="space-y-6 max-w-7xl mx-auto">
+    <form class="space-y-6 max-w-7xl mx-auto" method="POST" action="{{ route('hubungi.kirim') }}">
+    @csrf
     <h2 class="text-xl font-semibold mb-4">Kami senang mendengar Anda!</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="relative">
-            <input type="text" placeholder="Masukkan nama Anda" class="w-full border rounded px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300 text-sm" />
-            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-pink-400">
-                <i class="fa-regular fa-user"></i>
-            </span>
+            <input
+            type="text"
+            name="nama"
+            required
+            value="{{ auth()->check() ? auth()->user()->nama : '' }}"
+            placeholder="Masukkan nama Anda"
+            class="w-full border rounded px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300 text-sm"/>
+            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-pink-400"><i class="fa-regular fa-user"></i></span>
         </div>
         <div class="relative">
-            <input type="email" placeholder="Masukkan alamat email" class="w-full border rounded px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300 text-sm" />
-            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-pink-400">
-                <i class="fa-regular fa-envelope"></i>
-            </span>
+            <input
+            type="email"
+            name="email"
+            required
+            value="{{ auth()->check() ? auth()->user()->email : '' }}"
+            placeholder="Masukkan alamat email"
+            class="w-full border rounded px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300 text-sm"/>
+            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-pink-400"><i class="fa-regular fa-envelope"></i></span>
         </div>
         <div class="relative">
-            <select class="w-full border rounded px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300 text-sm appearance-none">
-                <option>Pilih Jenis Layanan</option>
-                <option>Buket Bunga Segar</option>
-                <option>Buket Bunga Random</option>
-                <option>Lainnya</option>
+            <select name="layanan" required class="w-full border rounded px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300 text-sm appearance-none">
+                <option value="">Pilih Jenis Layanan</option>
+                <option value="Buket Bunga Segar">Buket Bunga Segar</option>
+                <option value="Buket Bunga Random">Buket Bunga Random</option>
+                <option value="Buket Bunga Pesanan">Buket Bunga Pesanan</option>
+                <option value="Lainnya">Lainnya</option>
             </select>
-            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-pink-400 pointer-events-none">
-                <i class="fa-solid fa-chevron-down"></i>
-            </span>
+            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-pink-400 pointer-events-none"><i class="fa-solid fa-chevron-down"></i></span>
         </div>
         <div class="relative">
-            <input type="text" placeholder="Masukkan nomor telepon" class="w-full border rounded px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300 text-sm" />
-            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-pink-400">
-                <i class="fa-solid fa-phone"></i>
-            </span>
+            <input
+            type="text"
+            name="telepon"
+            required
+            value="{{ auth()->check() ? auth()->user()->no_telepon : '' }}"
+            placeholder="Masukkan nomor telepon"
+            class="w-full border rounded px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300 text-sm"/>
+            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-pink-400"><i class="fa-solid fa-phone"></i></span>
         </div>
     </div>
     <div class="relative">
-        <textarea placeholder="Masukkan pesan" class="w-full border rounded px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300 text-sm h-28 resize-none"></textarea>
-        <span class="absolute right-3 top-3 text-pink-400">
-            <i class="fa-regular fa-pen-to-square"></i>
-        </span>
+        <textarea name="pesan" required placeholder="Masukkan pesan" class="w-full border rounded px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300 text-sm h-28 resize-none"></textarea>
+        <span class="absolute right-3 top-3 text-pink-400"><i class="fa-regular fa-pen-to-square"></i></span>
     </div>
     <button type="submit" class="bg-pink-500 text-white px-8 py-3 rounded hover:bg-pink-600 transition font-semibold">
         Kirimkan pesan
     </button>
 </form>
+
 </div>
 
 {{-- Google Map --}}

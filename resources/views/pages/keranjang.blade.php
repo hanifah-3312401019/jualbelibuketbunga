@@ -38,21 +38,20 @@
             <td class="py-4 px-4 font-medium">{{ $item->produk->nama }}</td>
             <td class="py-4 px-4 text-green-600 font-semibold">Rp{{ number_format($item->produk->harga, 0, ',', '.') }}</td>
             <td class="py-4 px-4">
-              <form action="{{ route('keranjang.update', $item->id) }}" method="POST" class="flex justify-center items-center gap-2" onsubmit="return false;">
+              <form id="formUpdateQty{{ $item->id }}">
                 @csrf
-                @method('PUT')
-                <button type="button" onclick="decreaseQty({{ $item->id }})" class="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">-</button>
+                <button type="button" onclick="changeQty({{ $item->id }}, -1, {{ $item->produk->stok }})" class="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">-</button>
                 <input 
-                  id="cartQuantity{{ $item->id }}" 
-                  class="w-12 text-center border border-gray-300 rounded py-1" 
-                  type="number" 
-                  name="kuantitas" 
-                  value="{{ $item->kuantitas }}" 
-                  min="1" 
-                  max="{{ $item->produk->stok }}" 
-                  readonly>
-                <button type="button" onclick="increaseQty({{ $item->id }}, {{ $item->produk->stok }})" class="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">+</button>
-                <input type="hidden" name="update_url" value="{{ route('keranjang.update', $item->id) }}">
+                id="cartQuantity{{ $item->id }}" 
+                class="w-12 text-center border border-gray-300 rounded py-1" 
+                type="number" 
+                name="kuantitas" 
+                value="{{ $item->kuantitas }}" 
+                min="1" 
+                max="{{ $item->produk->stok }}"
+                data-stok="{{ $item->produk->stok }}" 
+                readonly>
+                <button type="button" onclick="changeQty({{ $item->id }}, 1, {{ $item->produk->stok }})" class="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">+</button>
               </form>
             </td>
             <td class="py-4 px-4 font-semibold" id="totalHarga{{ $item->id }}" data-harga="{{ $item->produk->harga }}">
@@ -84,28 +83,46 @@
 
 <!-- Script Interaktif -->
 <script>
-  function increaseQty(id, stok) {
-    let qtyInput = document.getElementById('cartQuantity' + id);
+  function changeQty(id, change, stok) {
+    const qtyInput = document.getElementById('cartQuantity' + id);
     let qty = parseInt(qtyInput.value);
-    if (qty < stok) {
-      qty++;
-      qtyInput.value = qty;
-      updateTotal(id, qty);
-      sendUpdate(id, qty);
-    } else {
-      alert("Jumlah melebihi stok tersedia!");
-    }
-  }
+    qty += change;
 
-  function decreaseQty(id) {
-    let qtyInput = document.getElementById('cartQuantity' + id);
-    let qty = parseInt(qtyInput.value);
-    if (qty > 1) {
-      qty--;
-      qtyInput.value = qty;
-      updateTotal(id, qty);
-      sendUpdate(id, qty);
+    if (qty < 1) return;
+
+    if (qty > stok) {
+      alert('Jumlah kuantitas sudah mencapai batas stok yang tersedia!');
+      return;
     }
+
+    qtyInput.value = qty;
+
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch(`/keranjang/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': token,
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body: JSON.stringify({
+        _method: 'PUT',
+        kuantitas: qty
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        updateTotal(id, qty);
+      } else {
+        alert('Gagal memperbarui kuantitas');
+      }
+    })
+    .catch(error => {
+      alert('Terjadi kesalahan jaringan');
+      console.error(error);
+    });
   }
 
   function updateTotal(id, qty) {
@@ -115,32 +132,24 @@
     totalHargaDisplay.textContent = 'Rp' + harga.toLocaleString('id-ID');
   }
 
-  function sendUpdate(id, qty) {
-  const form = document.querySelector(`form[action$="/${id}"]`);
-  const token = form.querySelector('input[name="_token"]').value;
-  const url = form.querySelector('input[name="update_url"]').value;
+  // Validasi sebelum checkout jika kuantitas > stok
+  document.querySelector('form[action="{{ route('checkout') }}"]').addEventListener('submit', function(e) {
+    const qtyInputs = document.querySelectorAll('input[name="kuantitas"]');
+    let valid = true;
 
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': token,
-      'X-Requested-With': 'XMLHttpRequest',
-    },
-    body: JSON.stringify({
-      _method: 'PUT',
-      kuantitas: qty
-    })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (!data.success) {
-      alert('Gagal memperbarui kuantitas.');
+    qtyInputs.forEach(function(input) {
+      const qty = parseInt(input.value);
+      const stok = parseInt(input.dataset.stok);
+      if (qty > stok) {
+        valid = false;
+      }
+    });
+
+    if (!valid) {
+      e.preventDefault();
+      alert('Terdapat produk yang melebihi stok. Silakan kurangi kuantitas sebelum melanjutkan ke checkout.');
     }
-  })
-  .catch(() => alert('Terjadi kesalahan jaringan.'));
-}
-
+  });
 </script>
 </body>
 

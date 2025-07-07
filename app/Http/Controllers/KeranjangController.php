@@ -83,7 +83,7 @@ class KeranjangController extends Controller
 
     public function clear()
     {
-        Keranjang::where('pengguna_id', auth()->guard('pengguna')->id())->delete();
+        Keranjang::where('user_id', auth()->guard('pengguna')->id())->delete();
 
         return redirect()->route('pages.keranjang.index')
             ->with('info', 'Keranjang dikosongkan.');
