@@ -11,22 +11,22 @@ class TentangKamiController extends Controller
             [
                 'nama' => 'Hanifah Dwi Cahayarani',
                 'jabatan' => 'UI/UX Designer & Full-Stack Developer',
-                'gambar' => 'tim2.jpg',
+                'gambar' => 'hani.png',
             ],
             [
                 'nama' => 'Christine Thalia',
                 'jabatan' => 'Full-Stack Developer',
-                'gambar' => 'tim2.jpg',
+                'gambar' => 'tim.jpg',
             ],
             [
                 'nama' => 'Aulia Salsabilla',
                 'jabatan' => 'Full-Stack Developer',
-                'gambar' => 'tim2.jpg',
+                'gambar' => 'tim2.png',
             ],
             [
                 'nama' => 'Enjelina Saruksuk',
                 'jabatan' => 'Full-Stack Developer',
-                'gambar' => 'tim2.jpg',
+                'gambar' => 'tim3.png',
             ],
         ];
 

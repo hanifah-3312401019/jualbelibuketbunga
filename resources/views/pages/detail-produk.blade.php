@@ -16,25 +16,27 @@
       </p>
 
       <!-- Jumlah -->
-      <div class="mb-6">
-        <label class="block text-sm font-medium mb-1">Jumlah Barang</label>
-        <div class="flex items-center space-x-4">
-          <button onclick="decreaseQty()" class="w-8 h-8 border rounded-full flex justify-center items-center text-lg">-</button>
-          <span id="quantity" class="text-lg font-semibold">1</span>
-          <button onclick="increaseQty()" class="w-8 h-8 border rounded-full flex justify-center items-center text-lg">+</button>
-        </div>
-      </div>
 
-      <!-- Tombol -->
       <form action="{{ route('pages.keranjang.store') }}" method="POST">
         @csrf
         <input type="hidden" name="produk_id" value="{{ $produk->id_produk }}">
         <input type="hidden" id="qty" name="quantity" value="1">
-        <button type="submit" class="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded font-semibold">
-          Tambahkan ke Keranjang
-        </button>
-      </form>
+        <div class="flex items-center space-x-3 mt-4">
+
+    <!-- Tombol jumlah -->
+    <div class="flex items-center border rounded-full overflow-hidden">
+      <button type="button" onclick="decreaseQty()" class="w-8 h-8 text-sm font-bold text-gray-600 hover:bg-gray-100">−</button>
+      <span id="quantity" class="px-3 font-semibold text-sm">1</span>
+      <button type="button" onclick="increaseQty()" class="w-8 h-8 text-sm font-bold text-gray-600 hover:bg-gray-100">+</button>
     </div>
+
+    <!-- Tombol tambah ke keranjang -->
+    <button type="submit" class="bg-pink-500 hover:bg-pink-800 text-white text-sm px-4 py-2 rounded-full font-semibold whitespace-nowrap">
+      Masukkan ke keranjang
+    </button>
+  </div>
+</form>
+</div>
 </div>
 
 <script>

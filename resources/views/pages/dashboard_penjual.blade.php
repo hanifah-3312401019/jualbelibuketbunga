@@ -10,6 +10,16 @@
     </div>
 @endif
 
+<form method="GET" action="{{ route('pesanan.index') }}" class="mt-6 mb-4">
+    <label for="filter" class="font-semibold">Filter Riwayat Pesanan:</label>
+    <select name="filter" id="filter" class="border rounded px-3 py-1 ml-2" onchange="this.form.submit()">
+        <option value="">Semua</option>
+        <option value="today" {{ request('filter') == 'today' ? 'selected' : '' }}>Hari Ini</option>
+        <option value="week" {{ request('filter') == 'week' ? 'selected' : '' }}>Minggu Ini</option>
+        <option value="month" {{ request('filter') == 'month' ? 'selected' : '' }}>Bulan Ini</option>
+    </select>
+</form>
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <!-- Box: Produk -->
     <div class="bg-purple-100 p-6 rounded-xl shadow">

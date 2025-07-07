@@ -2,7 +2,8 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'Bloomify Buyer')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Bloomify')</title>
 
     <!-- Tailwind + Flowbite + Font Awesome CDN -->
     <script src="https://cdn.tailwindcss.com/3.4.1"></script>
@@ -114,11 +115,7 @@
     </section>
     
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            AOS.init({ duration: 800, once: true });
-        });
-    </script>
+    
 
     <script>
         function confirmLogout() {
@@ -188,6 +185,12 @@
                     dropdown.classList.add('hidden');
                 }
             });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ duration: 800, once: true });
         });
     </script>
 

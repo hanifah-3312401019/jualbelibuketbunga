@@ -27,6 +27,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\DaftarPesananController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\RiwayatPesananController;
+use App\Http\Controllers\HubungiKamiController;
 
 // Route dasar Laravel
 // <--- Route default & halaman umum --->
@@ -46,6 +47,8 @@ Route::get('/home', function () {
 Route::get('/hubungi_kami', function () {
     return view('pages.hubungi_kami');
 });
+
+Route::post('/hubungi_kami/kirim', [HubungiKamiController::class, 'kirim'])->name('hubungi.kirim');
 
 // <--- Route dinamis sederhana --->
 Route::get('/user/{id}', function ($id) {
@@ -81,7 +84,7 @@ Route::get('/halaman_utama', [HalamanUtamaController::class, 'index'])->name('ha
 Route::get('/tentang_kami', [TentangKamiController::class, 'index']);
 
 // <--- Produk Umum --->
-Route::get('/produk', [ProdukController::class, 'index']);
+Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
 
 Route::get('/detail-produk', [DetailProdukController::class, 'index'])->name('pages.detail-produk');
