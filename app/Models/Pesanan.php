@@ -22,7 +22,7 @@ class Pesanan extends Model
         'status',
     ];
 
-    public function user()
+    public function pengguna()
     {
         return $this->belongsTo(Pengguna::class, 'user_id');
     }

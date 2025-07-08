@@ -14,45 +14,106 @@ class RekapPenjualanController extends Controller
     public function index(Request $request)
     {
         $filter = $request->input('filter', 'mingguan');
+        $dateFrom = $request->input('date_from');
+        $dateTo = $request->input('date_to');
 
         $query = Pesanan::where('status', 'paid');
 
+        // Apply date filters
         if ($filter == 'mingguan') {
-            $query->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+            $query->whereBetween('created_at', [
+                Carbon::now()->startOfWeek(), 
+                Carbon::now()->endOfWeek()
+            ]);
         } elseif ($filter == 'bulanan') {
-            $query->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()]);
+            $query->whereBetween('created_at', [
+                Carbon::now()->startOfMonth(), 
+                Carbon::now()->endOfMonth()
+            ]);
+        } elseif ($filter == 'custom' && $dateFrom && $dateTo) {
+            $query->whereBetween('created_at', [
+                Carbon::parse($dateFrom)->startOfDay(),
+                Carbon::parse($dateTo)->endOfDay()
+            ]);
         }
 
         $totalPendapatan = $query->sum('total');
+        $rekapPenjualan = $query->with('detail.produk')
+                               ->orderBy('created_at', 'desc')
+                               ->get();
 
-        $rekapPenjualan = $query->with('detail.produk')->get();
-
-        return view('pages.rekap_penjualan', compact('filter', 'totalPendapatan', 'rekapPenjualan'));
+        return view('pages.rekap_penjualan', compact(
+            'filter', 
+            'totalPendapatan', 
+            'rekapPenjualan'
+        ));
     }
 
     public function exportPdf(Request $request)
     {
         $filter = $request->input('filter', 'mingguan');
+        $dateFrom = $request->input('date_from');
+        $dateTo = $request->input('date_to');
 
         $query = Pesanan::where('status', 'paid');
 
+        // Apply same date filters as index
         if ($filter == 'mingguan') {
-            $query->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+            $query->whereBetween('created_at', [
+                Carbon::now()->startOfWeek(), 
+                Carbon::now()->endOfWeek()
+            ]);
         } elseif ($filter == 'bulanan') {
-            $query->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()]);
+            $query->whereBetween('created_at', [
+                Carbon::now()->startOfMonth(), 
+                Carbon::now()->endOfMonth()
+            ]);
+        } elseif ($filter == 'custom' && $dateFrom && $dateTo) {
+            $query->whereBetween('created_at', [
+                Carbon::parse($dateFrom)->startOfDay(),
+                Carbon::parse($dateTo)->endOfDay()
+            ]);
         }
 
         $totalPendapatan = $query->sum('total');
-        $rekapPenjualan = $query->with('detail.produk')->get();
+        $rekapPenjualan = $query->with('detail.produk')
+                               ->orderBy('created_at', 'desc')
+                               ->get();
 
-        $pdf = PDF::loadView('pages.export_pdf', compact('filter', 'totalPendapatan', 'rekapPenjualan'));
+        // Generate filename based on filter
+        $filename = 'Rekap-Penjualan-' . $filter;
+        if ($filter == 'custom' && $dateFrom && $dateTo) {
+            $filename .= '-' . Carbon::parse($dateFrom)->format('d-m-Y') . 
+                        '-to-' . Carbon::parse($dateTo)->format('d-m-Y');
+        }
 
-        return $pdf->download('Rekap-Penjualan-' . $filter . '.pdf');
+        $pdf = PDF::loadView('pages.export_pdf', compact(
+            'filter', 
+            'totalPendapatan', 
+            'rekapPenjualan',
+            'dateFrom',
+            'dateTo'
+        ));
+
+        return $pdf->download($filename . '.pdf');
     }
 
     public function exportExcel(Request $request)
     {
         $filter = $request->input('filter', 'mingguan');
-        return Excel::download(new RekapGabunganExport($filter), 'Rekap-Penjualan-' . $filter . '.xlsx');
+        $dateFrom = $request->input('date_from');
+        $dateTo = $request->input('date_to');
+        
+        // Generate filename based on filter
+        $filename = 'Rekap-Penjualan-' . $filter;
+        if ($filter == 'custom' && $dateFrom && $dateTo) {
+            $filename .= '-' . Carbon::parse($dateFrom)->format('d-m-Y') . 
+                        '-to-' . Carbon::parse($dateTo)->format('d-m-Y');
+        }
+
+        return Excel::download(
+            new RekapGabunganExport($filter, $dateFrom, $dateTo), 
+            $filename . '.xlsx'
+        );
     }
 }

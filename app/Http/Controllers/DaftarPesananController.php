@@ -33,12 +33,24 @@ class DaftarPesananController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:pending,paid,expired,failed'
+            'status' => 'required|in:Menunggu Pembayaran,Lunas,Dikirim,Kadaluarsa,Gagal'
         ]);
 
-        $pesanan = Pesanan::findOrFail($id);
+
+        $pesanan = Pesanan::with('detail.produk')->findOrFail($id);
+        $statusLama = $pesanan->status;
         $pesanan->status = $request->status;
         $pesanan->save();
+
+        // Kurangi stok jika baru diubah jadi 'paid'
+        if ($statusLama !== 'Lunas' && $request->status === 'Lunas') {
+            foreach ($pesanan->detail as $item) {
+                if ($item->produk) {
+                    $item->produk->stok = max(0, $item->produk->stok - $item->jumlah);
+                    $item->produk->save();
+                }
+            }
+        }
 
         return redirect()->route('pesanan.index')->with('success', 'Status pesanan berhasil diperbarui.');
     }

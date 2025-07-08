@@ -25,10 +25,9 @@
     <aside class="w-64 bg-gradient-to-b from-[#E8E3EF] to-[#FFFFFF] shadow-md flex flex-col justify-between p-4">
         <div>
             <div class="text-center mb-6">
-            <img src="{{ asset('images/Bloomify.png') }}" alt="Bloomify" class="mx-auto h-14 mb-2">
-            <h1 class="text-xl font-bold">Bloomify</h1>
-            <p class="text-xs text-gray-500">Bouquet Flowers</p>
-        </div>
+                <img src="{{ asset('images/Bloomify.png') }}" alt="Bloomify" class="mx-auto h-20 mb-2">
+                <p class="text-xs text-gray-500">Bouquet Flowers</p>
+            </div>
         <nav class="space-y-2 text-sm">
             <a href="{{ route('dashboard.penjual') }}" 
                class="flex items-center px-4 py-2 rounded-lg font-medium text-gray-700

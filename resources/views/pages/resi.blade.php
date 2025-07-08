@@ -80,7 +80,7 @@
               @foreach ($pesanan->detail as $i => $item)
               <tr class="border-b">
                 <td class="py-2 px-3">{{ $i + 1 }}</td>
-                <td class="py-2 px-3">{{ $item->produk }}</td>
+                <td class="py-2 px-3">{{ $item->produk->nama ?? 'Produk sudah dihapus' }}</td>
                 <td class="py-2 px-3 text-right">Rp{{ number_format($item->harga, 0, ',', '.') }}</td>
                 <td class="py-2 px-3 text-center">{{ $item->jumlah }}</td>
                 <td class="py-2 px-3 text-right">Rp{{ number_format($item->subtotal, 0, ',', '.') }}</td>

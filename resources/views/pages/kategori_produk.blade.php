@@ -5,7 +5,6 @@
 @section('content')
 <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl font-bold flex items-center gap-2">
-        <i class="fa-solid fa-bars"></i> KATEGORI PRODUK
     </h1>
 </div>
 

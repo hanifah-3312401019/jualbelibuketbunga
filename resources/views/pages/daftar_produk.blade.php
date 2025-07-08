@@ -3,7 +3,6 @@
 @section('title', 'Daftar Produk')
 
 @section('content')
-    <h1 class="text-2xl font-bold mb-4 flex items-center gap-2">📦 DAFTAR PRODUK</h1>
 
     {{-- Tombol Tambah Produk di atas kolom cari --}}
     <div class="mb-2">
