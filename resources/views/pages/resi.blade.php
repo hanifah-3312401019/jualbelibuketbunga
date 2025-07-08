@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Resi Pesanan - Bloomify</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -24,13 +24,27 @@
       <div class="absolute top-4 right-4">
         @php
           $statusClass = match($pesanan->status) {
-            'success' => 'bg-green-100 text-green-700',
-            'failed' => 'bg-red-100 text-red-700',
-            default => 'bg-yellow-100 text-yellow-700',
+            'Menunggu Pembayaran' => 'bg-yellow-100 text-yellow-800',
+            'Lunas' => 'bg-green-100 text-green-700',
+            'Dikirim' => 'bg-blue-100 text-blue-700',
+            'Kadaluarsa' => 'bg-gray-200 text-gray-700',
+            'Gagal' => 'bg-red-100 text-red-700',
+            default => 'bg-gray-100 text-gray-600',
           };
         @endphp
-        <span class="text-sm px-3 py-1 rounded-full {{ $statusClass }}">
-          Status: {{ ucfirst($pesanan->status) }}
+        <span class="text-sm px-4 py-1 rounded-full font-semibold shadow-sm flex items-center gap-2 {{ $statusClass }}">
+          @if($pesanan->status === 'Lunas')
+            <i class="fas fa-check-circle"></i>
+          @elseif($pesanan->status === 'Menunggu Pembayaran')
+            <i class="fas fa-hourglass-half"></i>
+          @elseif($pesanan->status === 'Dikirim')
+            <i class="fas fa-truck"></i>
+          @elseif($pesanan->status === 'Kadaluarsa')
+            <i class="fas fa-clock"></i>
+          @elseif($pesanan->status === 'Gagal')
+            <i class="fas fa-times-circle"></i>
+          @endif
+          {{ $pesanan->status }}
         </span>
       </div>
 

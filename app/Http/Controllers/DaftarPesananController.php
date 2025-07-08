@@ -45,11 +45,11 @@ class DaftarPesananController extends Controller
         // Kurangi stok jika baru diubah jadi 'paid'
         if ($statusLama !== 'Lunas' && $request->status === 'Lunas') {
             foreach ($pesanan->detail as $item) {
-                if ($item->produk) {
-                    $item->produk->stok = max(0, $item->produk->stok - $item->jumlah);
-                    $item->produk->save();
-                }
-            }
+        if ($item->produk && is_object($item->produk)) {
+            $item->produk->stok = max(0, $item->produk->stok - $item->jumlah);
+            $item->produk->save();
+        }
+}
         }
 
         return redirect()->route('pesanan.index')->with('success', 'Status pesanan berhasil diperbarui.');

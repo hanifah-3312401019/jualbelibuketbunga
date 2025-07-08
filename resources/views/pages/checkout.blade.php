@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -16,6 +16,16 @@
     @foreach($keranjang as $item)
       <input type="hidden" name="keranjang_terpilih[]" value="{{ $item->id }}">
     @endforeach
+
+    <!-- Back Button -->
+    <div class="mb-4">
+      <a href="{{ route('pages.keranjang.index') }}" class="inline-flex items-center text-pink-500 hover:text-pink-700 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Kembali ke Keranjang
+      </a>
+    </div>
 
     <div class="mb-6 flex items-center justify-between">
       <h2 class="text-2xl font-bold">Checkout</h2>
