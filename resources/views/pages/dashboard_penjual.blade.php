@@ -73,7 +73,7 @@
             </div>
             <div class="text-right">
                 <p class="text-3xl font-bold">{{ $jumlahProduk }}</p>
-                <p class="text-gray-600 text-sm">Jenis Produk</p>
+                <p class="text-gray-600 text-sm">Jumlah Produk</p>
             </div>
         </div>
         <div class="border-t border-rose-300 pt-4">

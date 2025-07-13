@@ -12,7 +12,7 @@ class DashboardPenjualController extends Controller
     {
         $jumlahProduk = Produk::count();
         $jumlahStokTersisa = Produk::sum('stok');
-        $jumlahRekapPenjualan = Pesanan::where('status', 'paid')->count();
+        $jumlahRekapPenjualan = Pesanan::where('status', 'Lunas')->count();
 
         return view('pages.dashboard_penjual', compact(
             'jumlahProduk', 

@@ -35,7 +35,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-[#6B8A6B] text-sm font-medium">Pesanan Lunas</p>
-                    <p class="text-2xl font-bold text-[#4A6B4A]">{{ $pesanan->where('status', 'paid')->count() }}</p>
+                    <p class="text-2xl font-bold text-[#4A6B4A]">{{ $pesanan->where('status', 'Lunas')->count() }}</p>
                 </div>
                 <div class="bg-[#7BA87B] rounded-full p-3">
                     <i class="fa-solid fa-check-circle text-white text-lg"></i>
@@ -47,7 +47,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-[#B8956B] text-sm font-medium">Pesanan Menunggu</p>
-                    <p class="text-2xl font-bold text-[#8A6B3A]">{{ $pesanan->where('status', 'pending')->count() }}</p>
+                    <p class="text-2xl font-bold text-[#8A6B3A]">{{ $pesanan->where('status', 'Menunggu Konfirmasi')->count() }}</p>
                 </div>
                 <div class="bg-[#D4B896] rounded-full p-3">
                     <i class="fa-solid fa-clock text-white text-lg"></i>
@@ -59,7 +59,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-[#6B8AB8] text-sm font-medium">Pesanan Dikirim</p>
-                    <p class="text-2xl font-bold text-[#4A6B8A]">{{ $pesanan->where('status', 'dikirim')->count() }}</p>
+                    <p class="text-2xl font-bold text-[#4A6B8A]">{{ $pesanan->where('status', 'Dikirim')->count() }}</p>
                 </div>
                 <div class="bg-[#7BA8D4] rounded-full p-3">
                     <i class="fa-solid fa-truck text-white text-lg"></i>
@@ -71,10 +71,34 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-[#B86B6B] text-sm font-medium">Pesanan Batal</p>
-                    <p class="text-2xl font-bold text-[#8A3A3A]">{{ $pesanan->whereIn('status', ['expired', 'failed'])->count() }}</p>
+                    <p class="text-2xl font-bold text-[#8A3A3A]">{{ $pesanan->whereIn('status', 'Kadaluarsa')->count() }}</p>
                 </div>
                 <div class="bg-[#C78A8A] rounded-full p-3">
                     <i class="fa-solid fa-times-circle text-white text-lg"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFFBEA] to-[#FFF5CC] rounded-xl p-4 border border-[#FFE4B5]">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-[#DAA520] text-sm font-medium">Pesanan Dikemas</p>
+                    <p class="text-2xl font-bold text-[#B8860B]">{{ $pesanan->where('status', 'Sedang Dikemas')->count() }}</p>
+                </div>
+                <div class="bg-[#FFD700] rounded-full p-3">
+                    <i class="fa-solid fa-box-open text-white text-lg"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#E8FFF0] to-[#D9FBE6] rounded-xl p-4 border border-[#BCEAD5]">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-[#3D9970] text-sm font-medium">Pesanan Selesai</p>
+                    <p class="text-2xl font-bold text-[#2E8B57]">{{ $pesanan->where('status', 'Selesai')->count() }}</p>
+                </div>
+                <div class="bg-[#3D9970] rounded-full p-3">
+                    <i class="fa-solid fa-star text-white text-lg"></i>
                 </div>
             </div>
         </div>
@@ -166,11 +190,12 @@
                                     {{ $item->status == 'expired' ? 'bg-[#FBF4F4] border-[#E8C6C6] text-[#8A3A3A]' : '' }}
                                     {{ $item->status == 'failed' ? 'bg-[#FBF4F4] border-[#E8C6C6] text-[#8A3A3A]' : '' }}
                                 ">
-                                    <option value="Menunggu Pembayaran" {{ $item->status == 'Menunggu Pembayaran' ? 'selected' : '' }}>⏳ Menunggu Pembayaran</option>
                                     <option value="Lunas" {{ $item->status == 'Lunas' ? 'selected' : '' }}>✅ Lunas</option>
+                                    <option value="Menunggu Konfirmasi" {{ $item->status == 'Menunggu Konfirmasi' ? 'selected' : '' }}>🕓 Menunggu Konfirmasi</option>
+                                    <option value="Sedang Dikemas" {{ $item->status == 'Sedang Dikemas' ? 'selected' : '' }}>📦 Sedang Dikemas</option>
                                     <option value="Dikirim" {{ $item->status == 'Dikirim' ? 'selected' : '' }}>🚚 Dikirim</option>
+                                    <option value="Selesai" {{ $item->status == 'Selesai' ? 'selected' : '' }}>✅ Selesai</option>
                                     <option value="Kadaluarsa" {{ $item->status == 'Kadaluarsa' ? 'selected' : '' }}>⏰ Kadaluarsa</option>
-                                    <option value="Gagal" {{ $item->status == 'Gagal' ? 'selected' : '' }}>❌ Gagal</option>
 
                                 </select>
                             </form>
@@ -191,6 +216,9 @@
                     @endforelse
                 </tbody>
             </table>
+            <div class="p-6">
+            {{ $pesanan->links() }}
+            </div>
         </div>
     </div>
 </div>
