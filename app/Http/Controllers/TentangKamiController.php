@@ -16,7 +16,7 @@ class TentangKamiController extends Controller
             [
                 'nama' => 'Christine Thalia',
                 'jabatan' => 'Full-Stack Developer',
-                'gambar' => 'tim.jpg',
+                'gambar' => 'tim4.jpg',
             ],
             [
                 'nama' => 'Aulia Salsabilla',

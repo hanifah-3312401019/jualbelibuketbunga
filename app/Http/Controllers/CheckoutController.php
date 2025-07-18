@@ -70,7 +70,7 @@ class CheckoutController extends Controller
             'alamat' => $request->alamat,
             'total' => $total,
             'metode_pembayaran' => 'midtrans',
-            'status' => 'Menunggu Pembayaran',
+            'status' => 'Lunas',
         ]);
 
         $order_id = 'ORDER-' . $pesanan->id . '-' . time();

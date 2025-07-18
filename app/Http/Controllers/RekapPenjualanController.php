@@ -17,7 +17,7 @@ class RekapPenjualanController extends Controller
         $dateFrom = $request->input('date_from');
         $dateTo = $request->input('date_to');
 
-        $query = Pesanan::where('status', 'paid');
+        $query = Pesanan::where('status', 'Lunas');
 
         // Apply date filters
         if ($filter == 'mingguan') {
@@ -55,7 +55,7 @@ class RekapPenjualanController extends Controller
         $dateFrom = $request->input('date_from');
         $dateTo = $request->input('date_to');
 
-        $query = Pesanan::where('status', 'paid');
+        $query = Pesanan::where('status', 'Lunas');
 
         // Apply same date filters as index
         if ($filter == 'mingguan') {
