@@ -30,16 +30,14 @@
 
                             <p><strong>Produk:</strong></p>
                             <ul class="list-disc list-inside text-gray-700 ml-4 mb-2">
-    @foreach ($item->detail as $detail)
-    @if (is_object($detail->produk))
-        <li>{{ $detail->produk->nama }} (x{{ $detail->jumlah }})</li>
-    @else
-        <li>{{ $detail->produk }} (x{{ $detail->jumlah }})</li>
-    @endif
-@endforeach
-
-</ul>
-
+                                @foreach ($item->detail as $detail)
+                                @if (is_object($detail->produk))
+                                <li>{{ $detail->produk->nama }} (x{{ $detail->jumlah }})</li>
+                                @else
+                                <li>{{ $detail->produk }} (x{{ $detail->jumlah }})</li>
+                                @endif
+                                @endforeach
+                            </ul>
                             <p><strong>Nama Penerima:</strong> {{ $item->nama_penerima }}</p>
                             <p><strong>Total:</strong> Rp{{ number_format($item->total, 0, ',', '.') }}</p>
                             <p><strong>Status:</strong> {{ ucfirst($item->status) }}</p>
