@@ -54,4 +54,25 @@ class DaftarPesananController extends Controller
 
         return redirect()->route('pesanan.index')->with('success', 'Status pesanan berhasil diperbarui.');
     }
+
+    public function uploadResi(Request $request, $id)
+{
+    $request->validate([
+        'resi_file' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+    ]);
+
+    $pesanan = Pesanan::findOrFail($id);
+
+    if ($request->hasFile('resi_file')) {
+        $file = $request->file('resi_file');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('images/resi'), $filename);
+
+        $pesanan->resi_file = 'images/resi/' . $filename;
+        $pesanan->save();
+    }
+
+    return back()->with('success', 'Resi berhasil diupload');
+}
+
 }

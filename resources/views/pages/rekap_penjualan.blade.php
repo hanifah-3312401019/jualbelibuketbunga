@@ -88,10 +88,7 @@
        class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors">
         📄 Export PDF
     </a>
-    <a href="{{ route('rekap.exportExcel', array_merge(['filter' => $filter], request()->only(['date_from', 'date_to']))) }}" 
-       class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded ml-2 transition-colors">
-        📊 Export Excel
-    </a>
+    
 </div>
 
 <!-- Table -->

@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class ProdukPenjualController extends Controller
 {
-    public function index(Request $request) // ⬅️ Tambahkan Request
+    public function index(Request $request)
 {
-    $query = Produk::query(); // ⬅️ Gunakan query builder
+    $query = Produk::query();
 
-    // Tambahan: logika filter pencarian
+    
     if ($request->has('cari') && $request->cari != '') {
         $keyword = $request->cari;
         $query->where(function ($q) use ($keyword) {
@@ -21,7 +21,7 @@ class ProdukPenjualController extends Controller
         });
     }
 
-    $produks = $query->get(); // Tetap pakai get()
+    $produks = $query->get();
     return view('pages.daftar_produk', compact('produks'));
 }
 
@@ -51,8 +51,10 @@ class ProdukPenjualController extends Controller
         }
 
         Produk::create($data);
+        $produk = Produk::create($data);
+        $namaProduk = $produk->nama;
 
-        return redirect()->route('produk-penjual.index')->with('success', 'Produk berhasil ditambahkan!');
+        return redirect()->route('produk-penjual.index')->with('success', 'Produk ' . $namaProduk . ' berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -64,6 +66,7 @@ class ProdukPenjualController extends Controller
     public function update(Request $request, $id)
     {
         $produk = Produk::findOrFail($id);
+        $namaProduk = $produk->nama;
 
         $request->validate([
             'nama' => 'required|string|max:255',
@@ -86,14 +89,15 @@ class ProdukPenjualController extends Controller
 
         $produk->update($data);
 
-        return redirect()->route('produk-penjual.index')->with('success', 'Produk berhasil diupdate!');
+        return redirect()->route('produk-penjual.index')->with('success', 'Produk ' . $namaProduk . ' berhasil diupdate!');
     }
 
     public function destroy($id)
     {
         $produk = Produk::findOrFail($id);
+        $namaProduk = $produk->nama;
         $produk->delete();
-        return redirect()->route('produk-penjual.index')->with('success', 'Produk berhasil dihapus!');
+        return redirect()->route('produk-penjual.index')->with('success', 'Produk ' . $namaProduk . ' berhasil dihapus.');
     }
 
 

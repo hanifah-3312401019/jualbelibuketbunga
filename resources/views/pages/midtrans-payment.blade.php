@@ -41,20 +41,34 @@
   </div>
 
   <script type="text/javascript">
-    document.getElementById('pay-button').onclick = function () {
-      snap.pay('{{ $snapToken }}', {
-        onSuccess: function(result) {
-          window.location.href = "/resi";
-        },
-        onPending: function(result) {
-          window.location.href = "/resi";
-        },
-        onError: function(result) {
-          alert("Pembayaran gagal.");
-        }
-      });
-    };
-  </script>
+  document.getElementById('pay-button').onclick = function () {
+    snap.pay('{{ $snapToken }}', {
+      onSuccess: function(result) {
+        console.log(result);
+        showSuccessOptions();
+      },
+      onPending: function(result) {
+        console.log(result);
+        showSuccessOptions();
+      },
+      onError: function(result) {
+        alert("Pembayaran gagal.");
+      }
+    });
+  };
+
+  function showSuccessOptions() {
+    const container = document.querySelector(".text-center.text-sm");
+    container.innerHTML = `
+      <div class="mt-4">
+        <p class="text-green-600 font-semibold">Pembayaran berhasil!</p>
+        <a href="/resi" class="mt-2 inline-block bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded-full shadow-md transition-all duration-300">
+          Lanjut ke Resi
+        </a>
+      </div>
+    `;
+  }
+</script>
 
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>

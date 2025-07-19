@@ -20,6 +20,7 @@ class Pesanan extends Model
         'total',
         'metode_pembayaran',
         'status',
+        'resi_file',
     ];
 
     public function pengguna()

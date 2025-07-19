@@ -156,6 +156,8 @@ Route::get('/resi', [ResiController::class, 'index'])->name('resi');
 Route::get('/produk-penjual', [ProdukPenjualController::class, 'index'])->name('produk-penjual.index');
 
 Route::get('/resi', [ResiController::class, 'index'])->name('resi.index');
+Route::post('/upload-resi/{id}', [RiwayatPesananController::class, 'uploadResi'])->name('upload.resi');
+Route::post('/upload-resi/{id}', [DaftarPesananController::class, 'uploadResi'])->name('upload.resi');
 
 // <--- Rekap Penjualan & Export --->
 Route::get('/rekap-penjualan', [RekapPenjualanController::class, 'index'])->name('rekap.index');

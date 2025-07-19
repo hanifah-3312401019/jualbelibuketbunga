@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Resi Pesanan - Bloomify</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body class="bg-gray-100 font-sans">
@@ -15,7 +16,7 @@
       <!-- Header -->
       <div class="flex justify-between items-center mb-8">
         <img src="{{ asset('images/Bloomify.png') }}" alt="Bloomify Logo" class="h-12">
-        <a href="{{ route('pages.keranjang.index') }}" class="text-black hover:text-gray-700">
+        <a href="{{ route('riwayat.pesanan') }}" class="text-black hover:text-gray-700">
           <i class="fas fa-arrow-left text-xl"></i>
         </a>
       </div>
@@ -128,6 +129,22 @@
 
     </div>
   </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const downloadBtn = document.createElement("button");
+    downloadBtn.textContent = "Download Resi (PNG)";
+    downloadBtn.className = "fixed bottom-5 right-5 bg-pink-500 text-white py-2 px-4 rounded-full shadow-lg hover:bg-pink-600";
+    document.body.appendChild(downloadBtn);
 
+    downloadBtn.onclick = function() {
+      html2canvas(document.querySelector(".container")).then(canvas => {
+        const link = document.createElement("a");
+        link.download = `resi-ORDER-{{ $pesanan->id }}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    };
+  });
+</script>
 </body>
 </html>

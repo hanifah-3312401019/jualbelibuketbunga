@@ -16,7 +16,8 @@ Untuk laporan lengkap mengenai proyek ini, Anda dapat mengunduh laporan PBL beri
 
 ## Video Presentasi
 Video presentasi proyek PBL Bloomify yang diupload pada YouTube:
-[Video Presentasi - Bloomify](https://youtu.be/PZ_4n8Km17w?si=9VNEFKY_l6n90hG4)
+[Video Presentasi ATS - Bloomify](https://youtu.be/PZ_4n8Km17w?si=9VNEFKY_l6n90hG4)
+[Video Presentasi AAS - Bloomify](https://youtu.be/iB-YVjI-Eik?si=Zi6KMqCwSJ3ES5aF)
 
 ## Kontak
 Jika memiliki pertanyaan, hubungi kami di email: pblbloomify@gmail.com
