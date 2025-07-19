@@ -41,7 +41,7 @@ class LoginController extends Controller
         $user = Pengguna::where('email', $request->email)->first();
 
         if ($user && password_verify($request->password, $user->password)) {
-            Auth::guard('pengguna')->login($user); // 🔄 pakai guard pengguna
+            Auth::guard('pengguna')->login($user);
 
             // Set session tambahan
             session([
@@ -61,7 +61,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('pengguna')->logout(); // 🔄 gunakan guard pengguna
+        Auth::guard('pengguna')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

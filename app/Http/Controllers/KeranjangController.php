@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Keranjang;
 use App\Models\Produk;
+use App\Models\Pengguna;
 use Illuminate\Support\Facades\Auth;
 
 class KeranjangController extends Controller
@@ -44,11 +45,11 @@ class KeranjangController extends Controller
                 'kuantitas' => $kuantitasBaru
             ]);
         } else {
-            // JIKA BELUM ADA, BUAT BARU
+            
             Keranjang::create([
                 'produk_id' => $request->produk_id,
                 'kuantitas' => $kuantitas,
-                'user_id' => Auth::id(),
+                'user_id' => auth('pengguna')->id(),
             ]);
         }
 
